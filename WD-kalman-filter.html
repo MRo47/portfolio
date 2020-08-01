@@ -177,8 +177,8 @@
 											title="\large Q_a = \begin{bmatrix} \sigma_{\ddot{x}}^2 & \sigma_{\ddot{y}}.\sigma_{\ddot{x}} & \sigma_{\ddot{\theta}}.\sigma_{\ddot{y}} \\ \sigma_{\ddot{x}}.\sigma_{\ddot{y}} & \sigma_{\ddot{y}}^2 & \sigma_{\ddot{\theta}}.\sigma_{\ddot{y}} \\ \sigma_{\ddot{x}}.\sigma_{\ddot{\theta}} & \sigma_{\ddot{y}}.\sigma_{\ddot{\theta}} & \sigma_{\ddot{\theta}}^2 \end{bmatrix}" />
 									</p>
 								</center>
-								<p>The matrix diagonals represent the variance (noise) in each predicted variable. The non diagonal values in the matrix represent
-									the covariance between variables 
+								<p>The matrix diagonals represent the <a href="https://en.wikipedia.org/wiki/Variance">variance</a> (noise) in each predicted variable. 
+									The non diagonal values in the matrix represent the <a href=https://en.wikipedia.org/wiki/Covariance>covariance</a> between variables 
 									(eg: how noise in x is correlated to y is given in row 2 column 1 which is the same as row 1 and column 2).
 									Assuming there is no correlation between the noise in acceleration of x to the noise in acceleration of y or <img
 										src="https://render.githubusercontent.com/render/math?math=\theta"> we can write <img
@@ -203,9 +203,9 @@
 								<p>in our case say we have a local gps system that sends us position updates in same units hence the value 1, this value
 									will change if we use different units for measurement or if we have another representation of position like polar
 									instead of cartesian coordiantes.</p>
-								<p>the 3 rows say that we have 3 meausrements x,y,<img
-										src="https://render.githubusercontent.com/render/math?math=\theta"> coming from our local GPS while the columns
-									represent the elements in our state. Since we dont measure velocity these columns have value 0.</p>
+								<p>the 3 rows indicate that we have 3 meausrements x,y,<img src="https://render.githubusercontent.com/render/math?math=\theta">
+									coming from our local GPS while the 6 columns represent the states in our system.
+									Since we dont measure velocity these columns have value 0.</p>
 								<center>
 									<p><img src="https://latex.codecogs.com/png.latex?\inline&space;\dpi{150}&space;\large&space;H&space;=&space;\begin{bmatrix}&space;1&space;&&space;0&space;&&space;0&space;&&space;0&space;&&space;0&space;&&space;0\\&space;0&space;&&space;1&space;&&space;0&space;&&space;0&space;&&space;0&space;&&space;0\\&space;0&space;&&space;0&space;&&space;1&space;&&space;0&space;&&space;0&space;&&space;0&space;\end{bmatrix}"
 											title="\large H = \begin{bmatrix} 1 & 0 & 0 & 0 & 0 & 0\\ 0 & 1 & 0 & 0 & 0 & 0\\ 0 & 0 & 1 & 0 & 0 & 0 \end{bmatrix}" />
@@ -215,7 +215,7 @@
 
 
 								<h3 id="measurement-noise">Measurement noise</h3>
-								<p>Since there are no perfect measurement devices we have to model the noise in the sensors. This noise is the standard
+								<p>Since there are no perfect sensors we have to model the noise in the sensors. This noise is the standard
 									deviation or the spread of the value measured by the sensors. Assuming that the measurement noise of the sensors in
 									different dimesnions is uncorrelated, we set our non diagonal values in the measurement noise matrix to zero.</p>
 								<center>
@@ -237,10 +237,15 @@
 									into the kalman filter.</p>
 								<p>The algorithm consists of 2 main steps: Prediction and Update</p>
 
-
+								<center>
+									<div class="work-img">
+										<img src="assets/img/works/KalmanFilterBlockD.png" alt="">
+									</div>
+									<h5 id="block-diagram-of-kalman-filter">Block diagram of kalman filter</h5>
+								</center>
 
 								<h3 id="prediction-step">Prediction step</h3>
-								<p>We can predict the state of the system as well as the noise as given below.</p>
+								<p>The next system state and noise in unit time can be predicted given the current state and system noise as below.</p>
 								<center>
 									<p><img src="https://latex.codecogs.com/png.latex?\inline&space;\dpi{150}&space;\large&space;\newline&space;X_{t&plus;1}&space;=&space;AX_t&space;&plus;&space;BU&space;\\&space;\newline&space;P_{t&plus;1}&space;=&space;AP_tA^{-1}&space;&plus;&space;Q&space;\\"
 											title="\large \newline X_{t+1} = AX_t + BU \\ \newline P_{t+1} = AP_tA^{-1} + Q \\" /></p>
@@ -279,8 +284,8 @@
 									<p><img src="https://latex.codecogs.com/png.latex?\inline&space;\dpi{150}&space;\large&space;$X_{t&plus;1}&space;=&space;X_{t&plus;1}&space;&plus;&space;K[Y_{t&plus;1}&space;-&space;HX_{t&plus;1}]$"
 											title="\large $X_{t+1} = X_{t+1} + K[Y_{t+1} - HX_{t+1}]$" /></p>
 								</center>
-								<p>All the step above does is to correct the value we had at predict state using the kalman gain value we calculated</p>
-								<p>Put simply as the <code>weighted average</code> of <code>measurement</code> and <code>prediction</code>.</p>
+								<p>All the step above does is to correct the value we had at prediction state using the kalman gain value we calculated</p>
+								<p>Put simply as the <b>weighted average</b> of <b>measurement</b> and <b>prediction</b>.</p>
 								<center>
 									<p><img src="https://latex.codecogs.com/png.latex?\inline&space;\dpi{150}&space;\large&space;$X_{corrected}&space;=&space;X_{predicted}&space;&plus;&space;K(X_{measured}&space;-&space;X_{predicted})$"
 											title="\large $X_{corrected} = X_{predicted} + K(X_{measured} - X_{predicted})$" /></p>
