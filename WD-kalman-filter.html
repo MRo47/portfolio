@@ -84,21 +84,31 @@
 						<!--  -->
 						<div>
 							<div class="work-detail__entry">
+								<center>
+									<div class="work-img">
+										<img src="assets/img/works/elvish.jpg" alt="">
+									</div>
+									<h5 id="block-diagram-of-kalman-filter">Frodo, just after discovering these equations</h5>
+								</center>
 								<p>
 									<h3>Objectives</h3> 
 									<ul style="list-style-type: disc">
-										<li> to design a kalman filter to track the position and orientation of an object moving on a 2D plane with 3
+										<li> To design a kalman filter to track the position and orientation of an object moving on a 2D plane with 3
 										degrees of freedom (traslation in x, traslation in y and rotation along z or yaw).</li>
-										<li> to understand sensor fusion using
+										<li> To understand sensor fusion using
 										kalman filters.</li>
-										<li> to be able to design application specific kalman filters.</li>
+										<li> To be able to design application specific kalman filters.</li>
 									</ul>
 								</p>
 								<p>Lets start with some color</p>
 								<center>
-									<div class="work-img"><img src="assets/img/works/KalmanFilterBlockD.png" alt=""></div>
+									<div class="work-img">
+										<img src="assets/img/works/KalmanFilterBlockD.png" alt="">
+									</div>
 									<h5 id="block-diagram-of-kalman-filter">Block diagram of kalman filter</h5>
 								</center>
+															
+
 								<h3 id="motion-modelling">Motion modelling</h3>
 								<p>The following <a href="https://en.wikipedia.org/wiki/Equations_of_motion">equations of motion</a> describe the motion
 									of the object with acceptable accuracy (neglecting the higher order differentials of the <a
@@ -145,6 +155,9 @@
 									acceleration in which case the B matrix remains as is, since acceleration is given as input).</p>
 								<p><img src="https://render.githubusercontent.com/render/math?math=w"> represents the uncertainity or noise in the
 									estimate of the system state as we exclude the higher order differentials in the system.</p>
+
+
+
 								<h3 id="process-noise">Process noise</h3>
 								<p>the process noise <img src="https://render.githubusercontent.com/render/math?math=w"> can be modelled as an equation.
 								</p>
@@ -172,6 +185,9 @@
 											title="\large Q_a = \begin{bmatrix} \sigma_{\ddot{x}}^2 & 0 & 0 \\ 0 & \sigma_{\ddot{y}}^2 & 0 \\ 0 & 0 & \sigma_{\ddot{\theta}}^2 \end{bmatrix}" />
 									</p>
 								</center>
+
+
+
 								<h3 id="measurement-model">Measurement model</h3>
 								here we model our sensors (eg: GPS, imu) to update the state of our system. the meaurement equation can be written as.
 								<center>
@@ -191,6 +207,9 @@
 											title="\large H = \begin{bmatrix} 1 & 0 & 0 & 0 & 0 & 0\\ 0 & 1 & 0 & 0 & 0 & 0\\ 0 & 0 & 1 & 0 & 0 & 0 \end{bmatrix}" />
 									</p>
 								</center>
+
+
+
 								<h3 id="measurement-noise">Measurement noise</h3>
 								<p>Since there are no perfect measurement devices we have to model the noise in the sensors. This noise is the standard
 									deviation or the spread of the value measured by the sensors. Assuming that the measurement noise of the sensors in
@@ -206,16 +225,25 @@
 											title="R = \begin{bmatrix} \sigma_{x}^2 & 0 & 0 \\ 0 & \sigma_{y}^2 & 0 \\ 0 & 0 & \sigma_{{\theta}}^2 \end{bmatrix}" />
 									</p>
 								</center>
+
+
+
 								<h3 id="algorithm">Algorithm</h3>
 								<p>Now that we have modelled our system as well as the measurements coming into it we are ready to plug in our values
 									into the kalman filter.</p>
 								<p>The algorithm consists of 2 main steps: Prediction and Update</p>
+
+
+
 								<h3 id="prediction-step">Prediction step</h3>
 								<p>We can predict the state of the system as well as the noise as given below.</p>
 								<center>
 									<p><img src="https://latex.codecogs.com/png.latex?\inline&space;\dpi{150}&space;\large&space;\newline&space;X_{t&plus;1}&space;=&space;AX_t&space;&plus;&space;BU&space;\\&space;\newline&space;P_{t&plus;1}&space;=&space;AP_tA^{-1}&space;&plus;&space;Q&space;\\"
 											title="\large \newline X_{t+1} = AX_t + BU \\ \newline P_{t+1} = AP_tA^{-1} + Q \\" /></p>
 								</center>
+
+
+
 								<h3 id="kalman-gain-k">Kalman Gain (K)</h3>
 								<p>Now we calculate the kalman gain <img src="https://render.githubusercontent.com/render/math?math=K">. This value
 									simply represents the proportion in which we should use our measurements versus our prediction to estimate our next
@@ -238,6 +266,9 @@
 											title="\large $K = \frac{\text{System Noise (P)}}{\text{System Noise (P)} + \text{Measurement Noise (R)} }$" />
 									</p>
 								</center>
+
+
+
 								<h3 id="correction-step">Correction step</h3>
 								<p>Here we update our system state using our predections and measurements.</p>
 								<center>
@@ -253,9 +284,15 @@
 									<p><img src="https://latex.codecogs.com/png.latex?\inline&space;\dpi{150}&space;\large&space;$X_{corrected}&space;=&space;K.X_{measured}&space;&plus;&space;(1-K)&space;X_{predicted}$"
 											title="\large $X_{corrected} = K.X_{measured} + (1-K) X_{predicted}$" /></p>
 								</center>
+
+
+								
 								<h3 id="designing-kalman-filters">Designing Kalman Filters</h3>
 								<p>Designing an application specific kalman filter involves defining the correct matrices based on the chosen state
 									model and measurement (sensors). A good sensor noise model would yeild an accurate filter.</p>
+								
+								
+								
 								<h3 id="kalman-filter-constant-velocity-model">Kalman Filter (Constant velocity model)</h3>
 								<p>here we adapt the equations above to model a simple constant velocity model of kalman filter where we neglect
 									acceleration and higher order terms for linearising the system. This filter although very simple would suffice for
@@ -305,16 +342,23 @@
 									<li>Once the above matrices have been defined the only work that is left is to plug in the values to the kalman
 										filter algorithm. The prediction step is run and correction is performed when a measurement is available.</li>
 								</ol>
-								<h5 id="kalman-filter-constant-velocity-model-tracking-robot-position">kalman filter (constant velocity model) tracking
-									robot position</h5>
 								<center>
-									<img src="assets/img/works/KF_constant_velocity_anim.gif" />
+									<div class="work-img">
+										<img src="assets/img/works/KF_constant_velocity_anim.gif" />
+									</div>
+									<h5 id="kalman-filter-constant-velocity-model-tracking-robot-position">kalman filter (constant velocity model) tracking
+										robot position</h5>
 								</center>
-								<h5 id="kalman-filter-constant-velocity-model-plot-of-variances-in-x-y-and-theta">kalman filter (constant velocity
-									model) plot of variances in x, y and theta</h5>
 								<center>
-									<img src="assets/img/works/KF_constant_velocity_err.png" />
+									<div class="work-img">
+										<img src="assets/img/works/KF_constant_velocity_err.png" />
+									</div>
+									<h5 id="kalman-filter-constant-velocity-model-plot-of-variances-in-x-y-and-theta">kalman filter (constant velocity
+										model) plot of variances in x, y and theta</h5>
 								</center>
+
+
+
 								<h3 id="kalman-filter-sensor-fusion">Kalman Filter (Sensor fusion)</h3>
 								<p>Here a kalman filter is designed that estimates the system state based on 2 sensor inputs (position sensor eg: gps
 									and an acceleration sensor eg: imu)</p>
@@ -386,37 +430,52 @@
 										available.</li>
 								</ol>
 								<center>
-								<h5 id="kalman-filter-sensor-fusion-model-tracking-robot-position">kalman filter (sensor fusion model) tracking robot
-									position</h5>
-									<img src="assets/img/works/KF_fusion_anim.gif" />
+									<div class="work-img">
+										<img src="assets/img/works/KF_fusion_anim.gif" />
+									</div>
+									<h5 id="kalman-filter-sensor-fusion-model-tracking-robot-position">kalman filter (sensor fusion model) tracking robot
+										position</h5>
 								</center>
 								<center>
-								<h5 id="kalman-filter-sensor-fusion-model-plot-of-variances-in-x-y-and-theta">kalman filter (sensor fusion model) plot
-									of variances in x, y and theta</h5>
-									<img src="assets/img/works/KF_fusion_err.png" />
+									<div class="work-img">
+										<img src="assets/img/works/KF_fusion_err.png" />
+									</div>
+									<h5 id="kalman-filter-sensor-fusion-model-plot-of-variances-in-x-y-and-theta">kalman filter (sensor fusion model) plot
+										of variances in x, y and theta</h5>
 								</center>
+
+
+
 								<h3 id="experiments">Experiments</h3>
 								<center>
-								<h5
-									id="kalman-filter-sensor-fusion-model-tracking-robot-position-with-position-input-only-imu-switched-off-at-20-iterations">
-									kalman filter (sensor fusion model) tracking robot position with position input only (imu switched off at 20
-									iterations)</h5>
-									<img src="assets/img/works/KF_DR_no_acc_anim.gif" />
+									<div class="work-img">
+										<img src="assets/img/works/KF_DR_no_acc_anim.gif" />
+									</div>	
+									<h5
+										id="kalman-filter-sensor-fusion-model-tracking-robot-position-with-position-input-only-imu-switched-off-at-20-iterations">
+										kalman filter (sensor fusion model) tracking robot position with position input only (imu switched off at 20
+										iterations)</h5>
 								</center>
 								<center>
-									<img src="assets/img/works/KF_DR_no_acc_err.png" />
+									<div class="work-img">
+										<img src="assets/img/works/KF_DR_no_acc_err.png" />
+									</div>
 									<h5 id="kalman-filter-sensor-fusion-model-plot-of-variances-in-x-y-and-theta-1">kalman filter (sensor fusion model) plot
 										of variances in x, y and theta</h5>
 								</center>
 								<center>
-								<h5 id="kalman-filter-sensor-fusion-model-dead-reckoning-position-sensor-switched-off-at-20-iterations">kalman filter
-									(sensor fusion model) dead reckoning (position sensor switched off at 20 iterations)</h5>
-									<img src="assets/img/works/KF_DR_no_pos_anim.gif" />
+									<div class="work-img">
+										<img src="assets/img/works/KF_DR_no_pos_anim.gif" />
+									</div>
+									<h5 id="kalman-filter-sensor-fusion-model-dead-reckoning-position-sensor-switched-off-at-20-iterations">kalman filter
+										(sensor fusion model) dead reckoning (position sensor switched off at 20 iterations)</h5>
 								</center>
-								<h5 id="kalman-filter-sensor-fusion-model-plot-of-variances-in-x-y-and-theta-2">kalman filter (sensor fusion model) plot
-									of variances in x, y and theta</h5>
 								<center>
-									<div class="work-img"><img src="assets/img/works/KF_DR_no_pos_err.png" alt=""></div>
+									<div class="work-img">
+										<img src="assets/img/works/KF_DR_no_pos_err.png" alt="">
+									</div>
+									<h5 id="kalman-filter-sensor-fusion-model-plot-of-variances-in-x-y-and-theta-2">kalman filter (sensor fusion model) plot
+										of variances in x, y and theta</h5>
 									<!-- <img src="assets/img/works/KF_DR_no_pos_err.png" /> -->
 								</center>
 								<h3 id="design-notes">Design notes</h3>
@@ -435,7 +494,9 @@
 
 
 
+								<div class="work-img">
 
+								</div>
 								<div class="work-img"><img src="assets/img/works/KF_fusion_err.png" alt=""></div>
 								
 							</div>
