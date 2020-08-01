@@ -105,8 +105,8 @@
 										href="https://en.wikipedia.org/wiki/Taylor_series">Taylor series</a> approximation like jerk (literally!)).</p>
 								<p>the position of the object in unit time (t+1) given the velocity and acceleration can be predicted as...</p>
 								<center>
-									<p><img src="https://latex.codecogs.com/png.latex?\inline&space;\dpi{150}&space;\large&space;\newline&space;x_{t&plus;1}&space;=&space;x_t&space;&plus;&space;t\dot{x}_t&space;&plus;&space;\frac{t^2}{2}\ddot{x}_t&space;\\&space;\newline&space;y_{t&plus;1}&space;=&space;y_t&space;&plus;&space;t\dot{y}_t&space;&plus;&space;\frac{t^2}{2}\ddot{y}_t&space;\\&space;\newline&space;\theta_{t&plus;1}&space;=&space;\theta_t&space;&plus;&space;t\dot{\theta}_t&space;&plus;&space;\frac{t^2}{2}\ddot{\theta}_t&space;\\&space;\newline&space;\dot{x}_t&space;=&space;\frac{dx_t}{dt}&space;=&space;\text{Object&space;velocity&space;along&space;x&space;at&space;time&space;t}&space;\\&space;\newline&space;\ddot{x}_t&space;=&space;\frac{d^2x_t}{dt^2}&space;=&space;\text{Object&space;acceleration&space;along&space;x&space;at&space;time&space;t}&space;\\"
-											title="\large \newline x_{t+1} = x_t + t\dot{x}_t + \frac{t^2}{2}\ddot{x}_t \\ \newline y_{t+1} = y_t + t\dot{y}_t + \frac{t^2}{2}\ddot{y}_t \\ \newline \theta_{t+1} = \theta_t + t\dot{\theta}_t + \frac{t^2}{2}\ddot{\theta}_t \\ \newline \dot{x}_t = \frac{dx_t}{dt} = \text{Object velocity along x at time t} \\ \newline \ddot{x}_t = \frac{d^2x_t}{dt^2} = \text{Object acceleration along x at time t} \\" />
+									<p><img src="https://latex.codecogs.com/png.latex?\dpi{150}&space;\begin{align*}&space;\newline&space;x_{t&plus;1}&space;&=&space;x_t&space;&plus;&space;t\dot{x}_t&space;&plus;&space;\frac{t^2}{2}\ddot{x}_t&space;\\&space;\newline&space;y_{t&plus;1}&space;&=&space;y_t&space;&plus;&space;t\dot{y}_t&space;&plus;&space;\frac{t^2}{2}\ddot{y}_t&space;\\&space;\newline&space;\theta_{t&plus;1}&space;&=&space;\theta_t&space;&plus;&space;t\dot{\theta}_t&space;&plus;&space;\frac{t^2}{2}\ddot{\theta}_t&space;\\&space;\newline&space;\dot{x}_t&space;=&space;\frac{dx_t}{dt}&space;&=&space;\text{Object&space;velocity&space;along&space;x&space;at&space;time&space;t}&space;\\&space;\newline&space;\ddot{x}_t&space;=&space;\frac{d^2x_t}{dt^2}&space;&=&space;\text{Object&space;acceleration&space;along&space;x&space;at&space;time&space;t}&space;\\&space;\end{align*}"
+										title="\begin{align*} \newline x_{t+1} &= x_t + t\dot{x}_t + \frac{t^2}{2}\ddot{x}_t \\ \newline y_{t+1} &= y_t + t\dot{y}_t + \frac{t^2}{2}\ddot{y}_t \\ \newline \theta_{t+1} &= \theta_t + t\dot{\theta}_t + \frac{t^2}{2}\ddot{\theta}_t \\ \newline \dot{x}_t = \frac{dx_t}{dt} &= \text{Object velocity along x at time t} \\ \newline \ddot{x}_t = \frac{d^2x_t}{dt^2} &= \text{Object acceleration along x at time t} \\ \end{align*}" />
 									</p>
 								</center>
 								<p>the velocity can be estimated as...</p>
@@ -119,15 +119,15 @@
 								
 								
 								<h3 id="dynamic-model">Dynamic model</h3>
-								<p>The above motion equations can be represented as a dynamic equation as. Here our system state is the position (x, y,
-									orientation or heading angle 0 if heading parallel to x axis) and velocity (linear along x and y, angular along z)
+								<p>The above motion equations can be represented as a system dynamics matrix. The system state in this case is the position (x, y,
+									orientation or heading angle which is 0 if heading parallel to x axis) and velocity (linear along x and y, angular along z)
 								</p>
 								<center>
 									<p><img src="https://latex.codecogs.com/png.latex?\inline&space;\dpi{150}&space;\large&space;X_{n&plus;1}&space;=&space;\begin{bmatrix}&space;x_{n&plus;1}&space;\\&space;y_{n&plus;1}&space;\\&space;\theta_{n&plus;1}&space;\\&space;\dot{x}_{n&plus;1}&space;\\&space;\dot{y}_{n&plus;1}&space;\\&space;\dot{\theta}_{n&plus;1}&space;\end{bmatrix}&space;=&space;\begin{bmatrix}&space;1&space;&&space;0&space;&&space;0&space;&&space;t&space;&&space;0&space;&&space;0&space;\\&space;0&space;&&space;1&space;&&space;0&space;&&space;0&space;&&space;t&space;&&space;0&space;\\&space;0&space;&&space;0&space;&&space;1&space;&&space;0&space;&&space;0&space;&&space;t&space;\\&space;0&space;&&space;0&space;&&space;0&space;&&space;1&space;&&space;0&space;&&space;0&space;\\&space;0&space;&&space;0&space;&&space;0&space;&&space;0&space;&&space;1&space;&&space;0&space;\\&space;0&space;&&space;0&space;&&space;0&space;&&space;0&space;&&space;0&space;&&space;1&space;\end{bmatrix}&space;\begin{bmatrix}&space;x_{n}&space;\\&space;y_{n}&space;\\&space;\theta_{n}&space;\\&space;\dot{x}_{n}&space;\\&space;\dot{y}_{n}&space;\\&space;\dot{\theta}_{n}&space;\end{bmatrix}&space;&plus;&space;\begin{bmatrix}&space;\frac{t^2}{2}&space;&&space;0&space;&&space;0&space;\\&space;0&space;&&space;\frac{t^2}{2}&space;&&space;0&space;\\&space;0&space;&&space;0&space;&&space;\frac{t^2}{2}&space;\\&space;t&space;&&space;0&space;&&space;0&space;\\&space;0&space;&&space;t&space;&&space;0&space;\\&space;0&space;&&space;0&space;&&space;t&space;\end{bmatrix}&space;\begin{bmatrix}&space;\ddot{x}_n&space;\\&space;\ddot{y}_n&space;\\&space;\ddot{\theta}_n&space;\end{bmatrix}"
 											title="\large X_{n+1} = \begin{bmatrix} x_{n+1} \\ y_{n+1} \\ \theta_{n+1} \\ \dot{x}_{n+1} \\ \dot{y}_{n+1} \\ \dot{\theta}_{n+1} \end{bmatrix} = \begin{bmatrix} 1 & 0 & 0 & t & 0 & 0 \\ 0 & 1 & 0 & 0 & t & 0 \\ 0 & 0 & 1 & 0 & 0 & t \\ 0 & 0 & 0 & 1 & 0 & 0 \\ 0 & 0 & 0 & 0 & 1 & 0 \\ 0 & 0 & 0 & 0 & 0 & 1 \end{bmatrix} \begin{bmatrix} x_{n} \\ y_{n} \\ \theta_{n} \\ \dot{x}_{n} \\ \dot{y}_{n} \\ \dot{\theta}_{n} \end{bmatrix} + \begin{bmatrix} \frac{t^2}{2} & 0 & 0 \\ 0 & \frac{t^2}{2} & 0 \\ 0 & 0 & \frac{t^2}{2} \\ t & 0 & 0 \\ 0 & t & 0 \\ 0 & 0 & t \end{bmatrix} \begin{bmatrix} \ddot{x}_n \\ \ddot{y}_n \\ \ddot{\theta}_n \end{bmatrix}" />
 									</p>
 								</center>
-								<p>This space state equation can be represented as...</p>
+								<p>This state space equation can be represented as...</p>
 								<center>
 									<p><img src="https://latex.codecogs.com/png.latex?\inline&space;\dpi{150}&space;\large&space;X_{n&plus;1}&space;=&space;AX_n&space;&plus;&space;BU_n&space;&plus;&space;w"
 											title="\large X_{n+1} = AX_n + BU_n + w" /></p>
@@ -136,14 +136,14 @@
 											title="\large A = \begin{bmatrix} 1 & 0 & 0 & t & 0 & 0 \\ 0 & 1 & 0 & 0 & t & 0 \\ 0 & 0 & 1 & 0 & 0 & t \\ 0 & 0 & 0 & 1 & 0 & 0 \\ 0 & 0 & 0 & 0 & 1 & 0 \\ 0 & 0 & 0 & 0 & 0 & 1 \end{bmatrix} \text{ } B = \begin{bmatrix} \frac{t^2}{2} & 0 & 0 \\ 0 & \frac{t^2}{2} & 0 \\ 0 & 0 & \frac{t^2}{2} \\ t & 0 & 0 \\ 0 & t & 0 \\ 0 & 0 & t \end{bmatrix}" />
 									</p>
 								</center>
-								<p>matrix <img src="https://render.githubusercontent.com/render/math?math=A"> is the system dynamic matrix that aids to
-									predict the next state of the kalman filter given the current state. matrix <img
+								<p>Matrix <img src="https://render.githubusercontent.com/render/math?math=A"> is the system dynamics matrix that aids in
+									predicting the next state of the kalman filter given the current state. Matrix <img
 										src="https://render.githubusercontent.com/render/math?math=B"> is the control input model and matrix <img
 										src="https://render.githubusercontent.com/render/math?math=U"> is the control vector. If the system has any
-									control inputs they can be modelled in these matrices to predict the next state and accordingly Q should be updated
-									to include the additional noise input (eg: A gas pedal input could be given as a control input to estimate the
+									control inputs they can be modelled in these matrices to predict the next state and accordingly Q (described below) 
+									should be updated to account for the noise input (eg: A gas pedal could be given as a control input to estimate the
 									acceleration in which case the B matrix remains as is, since acceleration is given as input).</p>
-								<p>the <img src="https://render.githubusercontent.com/render/math?math=w"> represents the uncertainity or noise in the
+								<p><img src="https://render.githubusercontent.com/render/math?math=w"> represents the uncertainity or noise in the
 									estimate of the system state as we exclude the higher order differentials in the system.</p>
 								<h3 id="process-noise">Process noise</h3>
 								<p>the process noise <img src="https://render.githubusercontent.com/render/math?math=w"> can be modelled as an equation.
@@ -154,14 +154,17 @@
 								</center>
 								<p>where <img src="https://render.githubusercontent.com/render/math?math=Q_a"> is the unceratainity or noise in the
 									acceleration given as standard deviation of acceleration, this is the system noise which is responsible for error in
-									the state prediction. The noise arises as a result of linearisation of system model using the taylor series, here we
+									the state prediction and arises as a result of linearisation of system model using the taylor series, here we
 									neglect the higher order terms after acceleration ie: jerk and other high order differentials.</p>
 								<center>
 									<p><img src="https://latex.codecogs.com/png.latex?\inline&space;\dpi{150}&space;\large&space;Q_a&space;=&space;\begin{bmatrix}&space;\sigma_{\ddot{x}}^2&space;&&space;\sigma_{\ddot{y}}.\sigma_{\ddot{x}}&space;&&space;\sigma_{\ddot{\theta}}.\sigma_{\ddot{y}}&space;\\&space;\sigma_{\ddot{x}}.\sigma_{\ddot{y}}&space;&&space;\sigma_{\ddot{y}}^2&space;&&space;\sigma_{\ddot{\theta}}.\sigma_{\ddot{y}}&space;\\&space;\sigma_{\ddot{x}}.\sigma_{\ddot{\theta}}&space;&&space;\sigma_{\ddot{y}}.\sigma_{\ddot{\theta}}&space;&&space;\sigma_{\ddot{\theta}}^2&space;\end{bmatrix}"
 											title="\large Q_a = \begin{bmatrix} \sigma_{\ddot{x}}^2 & \sigma_{\ddot{y}}.\sigma_{\ddot{x}} & \sigma_{\ddot{\theta}}.\sigma_{\ddot{y}} \\ \sigma_{\ddot{x}}.\sigma_{\ddot{y}} & \sigma_{\ddot{y}}^2 & \sigma_{\ddot{\theta}}.\sigma_{\ddot{y}} \\ \sigma_{\ddot{x}}.\sigma_{\ddot{\theta}} & \sigma_{\ddot{y}}.\sigma_{\ddot{\theta}} & \sigma_{\ddot{\theta}}^2 \end{bmatrix}" />
 									</p>
 								</center>
-								<p>Assuming there is no correlation between the noise in acceleration of x to the noise in acceleration of y or <img
+								<p>The matrix diagonals represent the variance (noise) in each predicted variable. The non diagonal values in the matrix represent
+									the covariance between variables 
+									(eg: how noise in x is correlated to y is given in row 2 column 1 which is the same as row 1 and column 2).
+									Assuming there is no correlation between the noise in acceleration of x to the noise in acceleration of y or <img
 										src="https://render.githubusercontent.com/render/math?math=\theta"> we can write <img
 										src="https://render.githubusercontent.com/render/math?math=Q_a"> by equating the non diagonal elements to 0.</p>
 								<center>
