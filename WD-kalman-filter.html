@@ -129,15 +129,16 @@
 								
 								
 								<h3 id="dynamic-model">Dynamic model</h3>
-								<p>The above motion equations can be represented as a system dynamics matrix. The system state in this case is the position (x, y,
-									orientation or heading angle which is 0 if heading parallel to x axis) and velocity (linear along x and y, angular along z)
+								<p>The above motion equations can be represented as a <b>system dynamics</b> matrix. 
+									The <b>system state</b> in this case is the <b>position</b> (x, y,
+									orientation or heading angle which is 0 if heading parallel to x axis) and <b>velocity</b> (linear along x and y, angular along z)
 								</p>
 								<center>
 									<p><img src="https://latex.codecogs.com/png.latex?\inline&space;\dpi{150}&space;\large&space;X_{n&plus;1}&space;=&space;\begin{bmatrix}&space;x_{n&plus;1}&space;\\&space;y_{n&plus;1}&space;\\&space;\theta_{n&plus;1}&space;\\&space;\dot{x}_{n&plus;1}&space;\\&space;\dot{y}_{n&plus;1}&space;\\&space;\dot{\theta}_{n&plus;1}&space;\end{bmatrix}&space;=&space;\begin{bmatrix}&space;1&space;&&space;0&space;&&space;0&space;&&space;t&space;&&space;0&space;&&space;0&space;\\&space;0&space;&&space;1&space;&&space;0&space;&&space;0&space;&&space;t&space;&&space;0&space;\\&space;0&space;&&space;0&space;&&space;1&space;&&space;0&space;&&space;0&space;&&space;t&space;\\&space;0&space;&&space;0&space;&&space;0&space;&&space;1&space;&&space;0&space;&&space;0&space;\\&space;0&space;&&space;0&space;&&space;0&space;&&space;0&space;&&space;1&space;&&space;0&space;\\&space;0&space;&&space;0&space;&&space;0&space;&&space;0&space;&&space;0&space;&&space;1&space;\end{bmatrix}&space;\begin{bmatrix}&space;x_{n}&space;\\&space;y_{n}&space;\\&space;\theta_{n}&space;\\&space;\dot{x}_{n}&space;\\&space;\dot{y}_{n}&space;\\&space;\dot{\theta}_{n}&space;\end{bmatrix}&space;&plus;&space;\begin{bmatrix}&space;\frac{t^2}{2}&space;&&space;0&space;&&space;0&space;\\&space;0&space;&&space;\frac{t^2}{2}&space;&&space;0&space;\\&space;0&space;&&space;0&space;&&space;\frac{t^2}{2}&space;\\&space;t&space;&&space;0&space;&&space;0&space;\\&space;0&space;&&space;t&space;&&space;0&space;\\&space;0&space;&&space;0&space;&&space;t&space;\end{bmatrix}&space;\begin{bmatrix}&space;\ddot{x}_n&space;\\&space;\ddot{y}_n&space;\\&space;\ddot{\theta}_n&space;\end{bmatrix}"
 											title="\large X_{n+1} = \begin{bmatrix} x_{n+1} \\ y_{n+1} \\ \theta_{n+1} \\ \dot{x}_{n+1} \\ \dot{y}_{n+1} \\ \dot{\theta}_{n+1} \end{bmatrix} = \begin{bmatrix} 1 & 0 & 0 & t & 0 & 0 \\ 0 & 1 & 0 & 0 & t & 0 \\ 0 & 0 & 1 & 0 & 0 & t \\ 0 & 0 & 0 & 1 & 0 & 0 \\ 0 & 0 & 0 & 0 & 1 & 0 \\ 0 & 0 & 0 & 0 & 0 & 1 \end{bmatrix} \begin{bmatrix} x_{n} \\ y_{n} \\ \theta_{n} \\ \dot{x}_{n} \\ \dot{y}_{n} \\ \dot{\theta}_{n} \end{bmatrix} + \begin{bmatrix} \frac{t^2}{2} & 0 & 0 \\ 0 & \frac{t^2}{2} & 0 \\ 0 & 0 & \frac{t^2}{2} \\ t & 0 & 0 \\ 0 & t & 0 \\ 0 & 0 & t \end{bmatrix} \begin{bmatrix} \ddot{x}_n \\ \ddot{y}_n \\ \ddot{\theta}_n \end{bmatrix}" />
 									</p>
 								</center>
-								<p>This state space equation can be represented as...</p>
+								<p>This state space representation can be equated as...</p>
 								<center>
 									<p><img src="https://latex.codecogs.com/png.latex?\inline&space;\dpi{150}&space;\large&space;X_{n&plus;1}&space;=&space;AX_n&space;&plus;&space;BU_n&space;&plus;&space;w"
 											title="\large X_{n+1} = AX_n + BU_n + w" /></p>
@@ -159,16 +160,18 @@
 
 
 								<h3 id="process-noise">Process noise</h3>
-								<p>the process noise <img src="https://render.githubusercontent.com/render/math?math=w"> can be modelled as an equation.
+								<p>The process noise <img src="https://render.githubusercontent.com/render/math?math=w"> is the noise which arises due to linearisation
+								of the system model using the <a href="https://en.wikipedia.org/wiki/Taylor_series">Taylor series</a> expansion and causes error 
+								in prediction of system state given the current state. If accounting for a control input this noise will also represent the noise due
+								to external factors on the system (eg: road friction and air drag on a car). Process noise can be modelled as an equation.
 								</p>
 								<center>
 									<p><img src="https://latex.codecogs.com/png.latex?\inline&space;\dpi{150}&space;\large&space;Q&space;=&space;BQ_aB^T"
 											title="\large Q = BQ_aB^T" /></p>
 								</center>
 								<p>where <img src="https://render.githubusercontent.com/render/math?math=Q_a"> is the unceratainity or noise in the
-									acceleration given as standard deviation of acceleration, this is the system noise which is responsible for error in
-									the state prediction and arises as a result of linearisation of system model using the taylor series, here we
-									neglect the higher order terms after acceleration ie: jerk and other high order differentials.</p>
+									acceleration given as standard deviation of acceleration
+								</p>
 								<center>
 									<p><img src="https://latex.codecogs.com/png.latex?\inline&space;\dpi{150}&space;\large&space;Q_a&space;=&space;\begin{bmatrix}&space;\sigma_{\ddot{x}}^2&space;&&space;\sigma_{\ddot{y}}.\sigma_{\ddot{x}}&space;&&space;\sigma_{\ddot{\theta}}.\sigma_{\ddot{y}}&space;\\&space;\sigma_{\ddot{x}}.\sigma_{\ddot{y}}&space;&&space;\sigma_{\ddot{y}}^2&space;&&space;\sigma_{\ddot{\theta}}.\sigma_{\ddot{y}}&space;\\&space;\sigma_{\ddot{x}}.\sigma_{\ddot{\theta}}&space;&&space;\sigma_{\ddot{y}}.\sigma_{\ddot{\theta}}&space;&&space;\sigma_{\ddot{\theta}}^2&space;\end{bmatrix}"
 											title="\large Q_a = \begin{bmatrix} \sigma_{\ddot{x}}^2 & \sigma_{\ddot{y}}.\sigma_{\ddot{x}} & \sigma_{\ddot{\theta}}.\sigma_{\ddot{y}} \\ \sigma_{\ddot{x}}.\sigma_{\ddot{y}} & \sigma_{\ddot{y}}^2 & \sigma_{\ddot{\theta}}.\sigma_{\ddot{y}} \\ \sigma_{\ddot{x}}.\sigma_{\ddot{\theta}} & \sigma_{\ddot{y}}.\sigma_{\ddot{\theta}} & \sigma_{\ddot{\theta}}^2 \end{bmatrix}" />
@@ -189,13 +192,14 @@
 
 
 								<h3 id="measurement-model">Measurement model</h3>
-								here we model our sensors (eg: GPS, imu) to update the state of our system. the meaurement equation can be written as.
+								Sensors (eg: GPS, imu) are modelled in this section which involves conversion of units or representation (polar to cartesian or cartesian to polar).
+								The measurement equation can be written as.
 								<center>
 									<p><img src="https://latex.codecogs.com/png.latex?\inline&space;\dpi{150}&space;\large&space;Y_{t&plus;1}&space;=&space;H&space;X_{t&plus;1}&space;&plus;&space;V"
 											title="\large Y_{t+1} = H X_{t+1} + V" /></p>
 								</center>
-								<p>The translation matrix <img src="https://render.githubusercontent.com/render/math?math=H"> allows us to convert
-									meausrements coming in from sensors to the form our state model uses to represent the system.</p>
+								<p>The translation matrix <img src="https://render.githubusercontent.com/render/math?math=H"> allows the conversion of
+									meausrements (eg: units, polar or cartesian form) coming in from sensors to the form represented by the state space model.</p>
 								<p>in our case say we have a local gps system that sends us position updates in same units hence the value 1, this value
 									will change if we use different units for measurement or if we have another representation of position like polar
 									instead of cartesian coordiantes.</p>
