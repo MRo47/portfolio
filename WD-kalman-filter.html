@@ -85,10 +85,12 @@
 						<div>
 							<div class="work-detail__entry">
 								<center>
-									<div class="work-img">
-										<img src="assets/img/works/elvish.jpg" alt="">
-									</div>
-									<h5 id="block-diagram-of-kalman-filter">Frodo, just after discovering these equations</h5>
+									<!-- <a href="https://www.pexels.com/photo/light-trails-on-highway-at-night-315938/"><img src="assets/img/works/wall.jpg"
+											alt=""></a> -->
+									<!-- <div class="work-img">
+										
+									</div> -->
+									<!-- <h5 id="block-diagram-of-kalman-filter">Frodo, just after discovering these equations</h5> -->
 								</center>
 								<p>
 									<h3>Objectives</h3> 
@@ -103,7 +105,7 @@
 								<p>Lets start with some color</p>
 								<center>
 									<div class="work-img">
-										<img src="assets/img/works/KalmanFilterBlockD.png" alt="">
+										<img src="assets/img/works/KF_fusion_anim.gif" alt="">
 									</div>
 									<h5 id="block-diagram-of-kalman-filter">Block diagram of kalman filter</h5>
 								</center>
@@ -245,20 +247,21 @@
 									<li>The <b>initial state</b>  of the system is given as the first input to the kalman filter 
 										<img src="https://render.githubusercontent.com/render/math?math=X_0"> is the state with position and velocity data. 
 										Which can be set to all 0 if not known. <img src="https://render.githubusercontent.com/render/math?math=P_0"> is the initial
-										system noise and the diagonals are set to very high values (variance or square of standard deviation) 
-										if the state is not known accurately. 
+										system noise and the diagonals are set to very high values if the state is not known accurately. The intuition is that we declare
+										the system state (position and velocity) is zero but we are highly uncertain about our estimate and hence the high covariance values
+										in the <img src="https://render.githubusercontent.com/render/math?math=P"> matrix.
 									</li>
 									<li>The <b>first input</b> then becomes the <b>prior</b>  knowledge of state in the kalman filter and will be updated 
 										continously as new measurements come into the system.
 									</li>
-									<li>The <b>prediction</b> step predicts the next state of the system given the current state, also system noise is added to the 
-										<img src="https://render.githubusercontent.com/render/math?math=P"> matrix.
+									<li>The <b>prediction</b> step predicts the next state of the system given the current state. The system noise is added to the 
+										<img src="https://render.githubusercontent.com/render/math?math=P"> matrix at this stage.
 									</li>
 									<li><b>Measurements</b> are then used to <b>correct</b> the system state using the kalman gain computed using the system and 
 										sensor noise matrices. The noise estimate now is also updated and will reduce if a high kalman gain was obtained.
 									</li>
 									<li>The newly corrected state and noise estimate now can be <b>observed</b> as the new position of the system (robot) and 
-										in unit time will become the priors for predicting the next state of the system. This process continues till the system runs and
+										in unit time will become the prior for predicting the next state of the system. This process continues till the system runs and
 										new measurements are taken in from the sensors.
 									</li>
 								</ol>
