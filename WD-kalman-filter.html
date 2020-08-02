@@ -205,7 +205,7 @@
 									instead of cartesian coordiantes.</p>
 								<p>the 3 rows indicate that we have 3 meausrements x,y,<img src="https://render.githubusercontent.com/render/math?math=\theta">
 									coming from our local GPS while the 6 columns represent the states in our system.
-									Since we dont measure velocity these columns have value 0.</p>
+									Since we dont measure velocity, these columns have value 0.</p>
 								<center>
 									<p><img src="https://latex.codecogs.com/png.latex?\inline&space;\dpi{150}&space;\large&space;H&space;=&space;\begin{bmatrix}&space;1&space;&&space;0&space;&&space;0&space;&&space;0&space;&&space;0&space;&&space;0\\&space;0&space;&&space;1&space;&&space;0&space;&&space;0&space;&&space;0&space;&&space;0\\&space;0&space;&&space;0&space;&&space;1&space;&&space;0&space;&&space;0&space;&&space;0&space;\end{bmatrix}"
 											title="\large H = \begin{bmatrix} 1 & 0 & 0 & 0 & 0 & 0\\ 0 & 1 & 0 & 0 & 0 & 0\\ 0 & 0 & 1 & 0 & 0 & 0 \end{bmatrix}" />
@@ -215,7 +215,8 @@
 
 
 								<h3 id="measurement-noise">Measurement noise</h3>
-								<p>Since there are no perfect sensors we have to model the noise in the sensors. This noise is the standard
+								<p>As there are no perfect sensors we have to model the noise in the sensors. Sensor noise in kalman filters is assumed
+									to be <a href=https://en.wikipedia.org/wiki/Normal_distribution>normally distributed</a> hence is represented by the standard
 									deviation or the spread of the value measured by the sensors. Assuming that the measurement noise of the sensors in
 									different dimesnions is uncorrelated, we set our non diagonal values in the measurement noise matrix to zero.</p>
 								<center>
@@ -233,16 +234,38 @@
 
 
 								<h3 id="algorithm">Algorithm</h3>
-								<p>Now that we have modelled our system as well as the measurements coming into it we are ready to plug in our values
-									into the kalman filter.</p>
-								<p>The algorithm consists of 2 main steps: Prediction and Update</p>
-
+								
 								<center>
 									<div class="work-img">
 										<img src="assets/img/works/KalmanFilterBlockD.png" alt="">
 									</div>
 									<h5 id="block-diagram-of-kalman-filter">Block diagram of kalman filter</h5>
 								</center>
+								<ol>
+									<li>The <b>initial state</b>  of the system is given as the first input to the kalman filter 
+										<img src="https://render.githubusercontent.com/render/math?math=X_0"> is the state with position and velocity data. 
+										Which can be set to all 0 if not known. <img src="https://render.githubusercontent.com/render/math?math=P_0"> is the initial
+										system noise and the diagonals are set to very high values (variance or square of standard deviation) 
+										if the state is not known accurately. 
+									</li>
+									<li>The <b>first input</b> then becomes the <b>prior</b>  knowledge of state in the kalman filter and will be updated 
+										continously as new measurements come into the system.
+									</li>
+									<li>The <b>prediction</b> step predicts the next state of the system given the current state, also system noise is added to the 
+										<img src="https://render.githubusercontent.com/render/math?math=P"> matrix.
+									</li>
+									<li><b>Measurements</b> are then used to <b>correct</b> the system state using the kalman gain computed using the system and 
+										sensor noise matrices. The noise estimate now is also updated and will reduce if a high kalman gain was obtained.
+									</li>
+									<li>The newly corrected state and noise estimate now can be <b>observed</b> as the new position of the system (robot) and 
+										in unit time will become the priors for predicting the next state of the system. This process continues till the system runs and
+										new measurements are taken in from the sensors.
+									</li>
+								</ol>
+
+								<p>Now that we have modelled our system as well as the measurements coming into it we are ready to plug in our values
+									into the kalman filter.</p>
+								<p>The algorithm consists of 3 crucial steps: <b>Prediction, gain calculation and update</b></p>
 
 								<h3 id="prediction-step">Prediction step</h3>
 								<p>The next system state and noise in unit time can be predicted given the current state and system noise as below.</p>
@@ -293,7 +316,14 @@
 									<p><img src="https://latex.codecogs.com/png.latex?\inline&space;\dpi{150}&space;\large&space;$X_{corrected}&space;=&space;K.X_{measured}&space;&plus;&space;(1-K)&space;X_{predicted}$"
 											title="\large $X_{corrected} = K.X_{measured} + (1-K) X_{predicted}$" /></p>
 								</center>
-
+								<p>The system noise is now corrected as.</p>
+								<center>
+									<img src="https://latex.codecogs.com/png.latex?\dpi{150}&space;P_{t&plus;1}&space;=&space;(I_6&space;-&space;KH)P_{t&plus;1}"
+										title="P_{t+1} = (I_6 - KH)P_{t+1}" />
+									<p>where</p>
+									<img src="https://latex.codecogs.com/png.latex?\dpi{150}&space;I_6&space;=&space;\text{Identity&space;matrix&space;of&space;dimensions&space;6X6}"
+										title="I_6 = \text{Identity matrix of dimensions 6X6}" />
+								</center>
 
 								
 								<h3 id="designing-kalman-filters">Designing Kalman Filters</h3>
