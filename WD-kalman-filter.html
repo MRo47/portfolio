@@ -68,7 +68,7 @@
 						<!-- page-title -->
 						<div class="page-title pb-40">
 							<h2 class="page-title__title">Kalman Filter</h2>
-							<p class="page-title__text">A 2D kalman filter tutorial for self<sub>t+dt</sub> and any explorer from space time.</p>
+							<p class="page-title__text">A comprehensive 2D kalman filter tutorial for self<sub>t+dt</sub> and any explorer from space time.</p>
 							<div class="page-title__divider"></div>
 						</div><!-- End / page-title -->
 						
@@ -85,16 +85,18 @@
 						<div>
 							<div class="work-detail__entry">
 								<center>
-									<!-- <a href="https://www.pexels.com/photo/light-trails-on-highway-at-night-315938/"><img src="assets/img/works/wall.jpg"
-											alt=""></a> -->
+									<a href="https://www.farmersalmanac.com/the-truth-behind-in-like-a-lion-out-like-a-lamb-2867"><img src="assets/img/works/lion1.jpeg"
+											alt=""></a>
 									<!-- <div class="work-img">
 										
 									</div> -->
-									<!-- <h5 id="block-diagram-of-kalman-filter">Frodo, just after discovering these equations</h5> -->
+									<h5 id="wall">A picture of a lion laughing (i guess) which makes no sense at all here, just like kalman filter 
+										did to me before I decided write this guide</h5>
 								</center>
 								<p>
 									<h3>Objectives</h3> 
 									<ul style="list-style-type: disc">
+										<li> To understand the intuition behind kalman filters.</li>
 										<li> To design a kalman filter to track the position and orientation of an object moving on a 2D plane with 3
 										degrees of freedom (traslation in x, traslation in y and rotation along z or yaw).</li>
 										<li> To understand sensor fusion using
@@ -109,9 +111,90 @@
 									</div>
 									<h5 id="block-diagram-of-kalman-filter">Block diagram of kalman filter</h5>
 								</center>
-															
+								
 
-								<h3 id="motion-modelling">Motion modelling</h3>
+
+								<h3>Gaussian distribution and product of 2 gaussian PDFs</h3>
+								<p>Before we dive in lets understand how probability distribution functions (PDFs) work, which form the basis of the mathamatics we will be
+									looking later in this article
+								</p>
+								<p>For 2 <a href="https://en.wikipedia.org/wiki/Normal_distribution"> normally (Gaussian) </a> 
+									distributed functions we define the probability density functions with means 
+									<img src="https://render.githubusercontent.com/render/math?math=\mu_1, \mu_2">
+									and variances 
+									<img src="https://render.githubusercontent.com/render/math?math=\sigma_1^2, \sigma_2^2">
+								</p>
+								<p>the mean in our case is the position where we expect the robot to be, while the variance signifies how far the spread of this value is.</p>
+								<center>
+									<img src="https://latex.codecogs.com/png.latex?\dpi{150}&space;\newline&space;x_1(t)&space;=&space;\frac{1}{\sqrt{2\pi\sigma_1^2}}e^{-\frac{(t-\mu_1)^2}{2\sigma_1^2}}&space;\\&space;\newline&space;x_2(t)&space;=&space;\frac{1}{\sqrt{2\pi\sigma_2^2}}e^{-\frac{(t-\mu_2)^2}{2\sigma_2^2}}"
+										title="\newline x_1(t) = \frac{1}{\sqrt{2\pi\sigma_1^2}}e^{-\frac{(t-\mu_1)^2}{2\sigma_1^2}} \\ \newline x_2(t) = \frac{1}{\sqrt{2\pi\sigma_2^2}}e^{-\frac{(t-\mu_2)^2}{2\sigma_2^2}}" />
+								</center>
+								<br>
+								<p>The product density of the above function will have mean and variance given as</p>
+								<center>
+									<img src="https://latex.codecogs.com/png.latex?\dpi{150}&space;\newline&space;\mu&space;=&space;\frac{\frac{\mu_1}{2\sigma_1^2}&space;&plus;&space;\frac{\mu_2}{2\sigma_2^2}}{\frac{1}{2\sigma_1^2}&space;&plus;&space;\frac{1}{2\sigma_2^2}}&space;=&space;\frac{\mu_1\sigma_2^2&space;&plus;&space;\mu_2\sigma_1^2}{\sigma_2^2&space;&plus;&space;\sigma_1^2}&space;\\&space;\newline&space;\newline&space;\sigma^2&space;=&space;\sigma_1^2&space;\sigma_2^2&space;=&space;\frac{1}{\frac{1}{\sigma_1^2}&space;&plus;&space;\frac{1}{\sigma_2^2}}&space;=&space;\frac{\sigma_1^2\sigma_2^2}{\sigma_1^2&space;&plus;&space;\sigma_2^2}"
+										title="\newline \mu = \frac{\frac{\mu_1}{2\sigma_1^2} + \frac{\mu_2}{2\sigma_2^2}}{\frac{1}{2\sigma_1^2} + \frac{1}{2\sigma_2^2}} = \frac{\mu_1\sigma_2^2 + \mu_2\sigma_1^2}{\sigma_2^2 + \sigma_1^2} \\ \newline \newline \sigma^2 = \sigma_1^2 \sigma_2^2 = \frac{1}{\frac{1}{\sigma_1^2} + \frac{1}{\sigma_2^2}} = \frac{\sigma_1^2\sigma_2^2}{\sigma_1^2 + \sigma_2^2}" />
+								</center>
+								<br>
+								<p>we use these equations to correct the predicted value by the system dynamic model using the measurement as depicted in the graph below</p>
+								<center>
+									<div class="work-img">
+										<img src="assets/img/works/gaussian_math_marked.png" alt="">
+									</div>
+									<h5 id="gauss_math">State estimation using gaussian distribution</h5>
+								</center>
+								<p>The product of 2 gaussians (predicted with mean at 8.0 and measurement with mean at 10.0) gives us the resultant corrected value which is centered 
+									at mean = 9.154 and has a less spread (variance) than both the gaussians. This is how we correct the state of the measured variable 
+									when a new measurement is available and predict the next state using the system dynamic model which will be discussed later. Refer this 
+									video from mathworks on <a href="https://www.mathworks.com/videos/understanding-kalman-filters-part-3-optimal-state-estimator--1490710645421.html">
+									understanding kalman filters</a> to have a clearer picture of this concept. 
+								</p>
+								
+								
+
+								<h3 id="algorithm">Algorithm</h3>
+								<p>This section describes a functional block diagram of the kalman filter.</p>
+								<center>
+									<div class="work-img">
+										<img src="assets/img/works/KalmanFilterBlockD.png" alt="">
+									</div>
+									<h5 id="block-diagram-of-kalman-filter">Block diagram of kalman filter</h5>
+								</center>
+								<ol>
+									<li>The <b>initial state</b> of the system is given as the first input to the kalman filter.
+										<img src="https://render.githubusercontent.com/render/math?math=X_0"> is the state with position, velocity
+										and/or acceleration values.
+										Which can be set to all 0 if not known. <img src="https://render.githubusercontent.com/render/math?math=P_0"> is
+										the initial
+										system noise and the diagonals are set to very high values if the state is not known accurately. The intuition
+										is that we declare
+										the system state (position and velocity) is zero but we are highly uncertain about our estimate and hence the
+										high covariance values
+										in the <img src="https://render.githubusercontent.com/render/math?math=P"> matrix.
+									</li>
+									<li>The <b>first input</b> then becomes the <b>prior</b> knowledge of state in the kalman filter and will be updated
+										continously as new measurements come into the system.
+									</li>
+									<li>The <b>prediction</b> step predicts the next state of the system given the current state. The system noise is
+										added to the
+										<img src="https://render.githubusercontent.com/render/math?math=P"> matrix at this stage.
+									</li>
+									<li><b>Measurements</b> are then used to <b>correct</b> the system state using the kalman gain computed using the
+										system and
+										sensor noise matrices. The noise estimate now is also updated and will reduce if a high kalman gain was
+										obtained.
+									</li>
+									<li>The newly corrected state and noise estimate now can be <b>observed</b> as the new position of the system
+										(robot) and
+										in unit time will become the prior for predicting the next state of the system. This process continues till the
+										system runs and
+										new measurements are taken in from the sensors.
+									</li>
+								</ol>
+
+								
+
+								<h3 id="motion-modelling">Dynamic model</h3>
 								<p>The following <a href="https://en.wikipedia.org/wiki/Equations_of_motion">equations of motion</a> describe the motion
 									of the object with acceptable accuracy (neglecting the higher order differentials of the <a
 										href="https://en.wikipedia.org/wiki/Taylor_series">Taylor series</a> approximation like jerk (literally!)).</p>
@@ -128,9 +211,6 @@
 									</p>
 								</center>
 
-								
-								
-								<h3 id="dynamic-model">Dynamic model</h3>
 								<p>The above motion equations can be represented as a <b>system dynamics</b> matrix. 
 									The <b>system state</b> in this case is the <b>position</b> (x, y,
 									orientation or heading angle which is 0 if heading parallel to x axis) and <b>velocity</b> (linear along x and y, angular along z)
@@ -234,41 +314,12 @@
 								</center>
 
 
-
-								<h3 id="algorithm">Algorithm</h3>
-								
-								<center>
-									<div class="work-img">
-										<img src="assets/img/works/KalmanFilterBlockD.png" alt="">
-									</div>
-									<h5 id="block-diagram-of-kalman-filter">Block diagram of kalman filter</h5>
-								</center>
-								<ol>
-									<li>The <b>initial state</b>  of the system is given as the first input to the kalman filter 
-										<img src="https://render.githubusercontent.com/render/math?math=X_0"> is the state with position and velocity data. 
-										Which can be set to all 0 if not known. <img src="https://render.githubusercontent.com/render/math?math=P_0"> is the initial
-										system noise and the diagonals are set to very high values if the state is not known accurately. The intuition is that we declare
-										the system state (position and velocity) is zero but we are highly uncertain about our estimate and hence the high covariance values
-										in the <img src="https://render.githubusercontent.com/render/math?math=P"> matrix.
-									</li>
-									<li>The <b>first input</b> then becomes the <b>prior</b>  knowledge of state in the kalman filter and will be updated 
-										continously as new measurements come into the system.
-									</li>
-									<li>The <b>prediction</b> step predicts the next state of the system given the current state. The system noise is added to the 
-										<img src="https://render.githubusercontent.com/render/math?math=P"> matrix at this stage.
-									</li>
-									<li><b>Measurements</b> are then used to <b>correct</b> the system state using the kalman gain computed using the system and 
-										sensor noise matrices. The noise estimate now is also updated and will reduce if a high kalman gain was obtained.
-									</li>
-									<li>The newly corrected state and noise estimate now can be <b>observed</b> as the new position of the system (robot) and 
-										in unit time will become the prior for predicting the next state of the system. This process continues till the system runs and
-										new measurements are taken in from the sensors.
-									</li>
-								</ol>
-
 								<p>Now that we have modelled our system as well as the measurements coming into it we are ready to plug in our values
 									into the kalman filter.</p>
 								<p>The algorithm consists of 3 crucial steps: <b>Prediction, gain calculation and update</b></p>
+
+
+
 
 								<h3 id="prediction-step">Prediction step</h3>
 								<p>The next system state and noise in unit time can be predicted given the current state and system noise as below.</p>
@@ -311,7 +362,7 @@
 											title="\large $X_{t+1} = X_{t+1} + K[Y_{t+1} - HX_{t+1}]$" /></p>
 								</center>
 								<p>All the step above does is to correct the value we had at prediction state using the kalman gain value we calculated</p>
-								<p>Put simply as the <b>weighted average</b> of <b>measurement</b> and <b>prediction</b>.</p>
+								<p>Put simply as the <b>weighted average</b> of <b>measurement</b> and <b>prediction</b>. Recall <b>product of 2 PDFs</b></p>
 								<center>
 									<p><img src="https://latex.codecogs.com/png.latex?\inline&space;\dpi{150}&space;\large&space;$X_{corrected}&space;=&space;X_{predicted}&space;&plus;&space;K(X_{measured}&space;-&space;X_{predicted})$"
 											title="\large $X_{corrected} = X_{predicted} + K(X_{measured} - X_{predicted})$" /></p>
@@ -504,6 +555,14 @@
 									</div>
 									<h5 id="kalman-filter-sensor-fusion-model-plot-of-variances-in-x-y-and-theta-1">kalman filter (sensor fusion model) plot
 										of variances in x, y and theta</h5>
+								</center>
+								<center>
+									<div class="work-img">
+										<img src="assets/img/works/dead_reckoning_meme.jpg" />
+									</div>
+									<h5 id="how dead reckoning looks like:- you can feel it but you cant see it">
+										how dead reckoning looks like
+									</h5>
 								</center>
 								<center>
 									<div class="work-img">
