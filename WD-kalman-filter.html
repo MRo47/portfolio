@@ -68,7 +68,7 @@
 						<!-- page-title -->
 						<div class="page-title pb-40">
 							<h2 class="page-title__title">Kalman Filter</h2>
-							<p class="page-title__text">A comprehensive 2D kalman filter tutorial for self<sub>t+dt</sub> and any explorer from space time.</p>
+							<p class="page-title__text">A comprehensive 2D <a href="https://en.wikipedia.org/wiki/Rudolf_E._K%C3%A1lm%C3%A1n">kalman</a> filter tutorial for self<sub>t+dt</sub> and any explorer from space time.</p>
 							<div class="page-title__divider"></div>
 						</div><!-- End / page-title -->
 						
@@ -90,15 +90,15 @@
 									<!-- <div class="work-img">
 										
 									</div> -->
-									<h5 id="wall">A picture of a lion laughing (i guess) which makes no sense at all here, just like kalman filter 
-										did to me before I decided write this guide</h5>
+									<h5 id="wall">A beautiful picture of a lion laughing (maybe) which makes absolutely no sense at all here, just like kalman filter 
+										did to me before I decided to write this guide</h5>
 								</center>
 								<p>
 									<h3>Objectives</h3> 
 									<ul style="list-style-type: disc">
 										<li> To understand the intuition behind kalman filters.</li>
 										<li> To design a kalman filter to track the position and orientation of an object moving on a 2D plane with 3
-										degrees of freedom (traslation in x, traslation in y and rotation along z or yaw).</li>
+										degrees of freedom (translation in x, translation in y and rotation along z or yaw).</li>
 										<li> To understand sensor fusion using
 										kalman filters.</li>
 										<li> To be able to design application specific kalman filters.</li>
@@ -115,7 +115,7 @@
 
 
 								<h3>Gaussian distribution and product of 2 gaussian PDFs</h3>
-								<p>Before we dive in lets understand how probability distribution functions (PDFs) work, which form the basis of the mathamatics we will be
+								<p>Before we dive in, lets understand how probability distribution functions (PDFs) work, which form the basis of the mathamatics we will be
 									looking later in this article
 								</p>
 								<p>For 2 <a href="https://en.wikipedia.org/wiki/Normal_distribution"> normally (Gaussian) </a> 
@@ -153,7 +153,7 @@
 								
 
 								<h3 id="algorithm">Algorithm</h3>
-								<p>This section describes a functional block diagram of the kalman filter.</p>
+								<p>In this section we will look at the functional block diagram of kalman filters.</p>
 								<center>
 									<div class="work-img">
 										<img src="assets/img/works/KalmanFilterBlockD.png" alt="">
@@ -192,6 +192,10 @@
 									</li>
 								</ol>
 
+								<p>Now that we have a roadmap to what we want to achieve lets get deeper into the math. The following sections will
+									explain how the system and sensors are modelled before we apply the kalman filter equations.</p>
+
+								
 								
 
 								<h3 id="motion-modelling">Dynamic model</h3>
@@ -297,6 +301,13 @@
 
 
 								<h3 id="measurement-noise">Measurement noise</h3>
+								<center>
+									<div class="work-img">
+										<img src="assets/img/works/like_a_gauss.jpeg" alt="">
+									</div>
+									<h5 id="noise modelling">Thank <a href="https://en.wikipedia.org/wiki/Carl_Friedrich_Gauss">Carl Friedrich Gauss</a>
+										for the bell curve</h5>
+								</center>
 								<p>As there are no perfect sensors we have to model the noise in the sensors. Sensor noise in kalman filters is assumed
 									to be <a href=https://en.wikipedia.org/wiki/Normal_distribution>normally distributed</a> hence is represented by the standard
 									deviation or the spread of the value measured by the sensors. Assuming that the measurement noise of the sensors in
@@ -313,12 +324,16 @@
 									</p>
 								</center>
 
-
 								<p>Now that we have modelled our system as well as the measurements coming into it we are ready to plug in our values
 									into the kalman filter.</p>
 								<p>The algorithm consists of 3 crucial steps: <b>Prediction, gain calculation and update</b></p>
 
-
+								<center>
+									<div class="work-img">
+										<img src="assets/img/works/yo_dawg.jpg" alt="">
+									</div>
+								</center>
+								
 
 
 								<h3 id="prediction-step">Prediction step</h3>
