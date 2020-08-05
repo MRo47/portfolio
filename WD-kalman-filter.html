@@ -104,7 +104,6 @@
 										<li> To be able to design application specific kalman filters.</li>
 									</ul>
 								</p>
-								<p>Lets start with some color</p>
 								<!-- <center>
 									<div class="work-img">
 										<img src="assets/img/works/KF_fusion_anim.gif" alt="">
@@ -451,10 +450,10 @@
 										filter algorithm. The prediction step is run and correction is performed when a measurement is available.</li>
 								</ol>
 
-								<h5>Marker keys for animations</h5>
+								<h4>Marker keys for animations</h4>
 								<p>
 								The animations that follow show the kalman filters tracking a robot. 
-								<ul>
+								<ul style="list-style-type: disc">
 									<li>
 										The <b>green</b> line shows the <b>real
 											path</b> the robot followed in the simulation which is a sine curve.
@@ -475,8 +474,13 @@
 									</li>
 									<li>
 										Be advised that x coordinate in this animation has a linear relationship with time but has noise added hence will jump back
-										and forth depending on the value. The y coordinate has a non linear relationship and hence the sine curve. Refer the modules/datagen.py
-										section for the motion model.
+										and forth depending on the value. The y coordinate has a non linear relationship with time and hence the sine curve.
+										Refer the modules/datagen.py section on the github repo for the motion model.
+									</li>
+									<li>
+										Plots later in this guide will have acceleration in x, y and theta and indicate the acceleration estimate
+										of each variable at some timestamp. This plots are not given for the constant velocity model as they are not 
+										part of the state variable and hence cannot be observed.
 									</li>
 								</ul>  
 								
@@ -488,8 +492,22 @@
 									<h5 id="kalman-filter-constant-velocity-model-tracking-robot-position">kalman filter (constant velocity model) tracking
 										robot position</h5>
 								</center>
-								<p>The animation above was run on 100 timestamps with data missing at
-								timestamps 10, 11, 12, 30, 31, 32, 33, 34, 50, 51 and 52. The initial state was 0,0,0 as seen in the plot. 
+								<p>
+								<ul style="list-style-type: disc">
+									<li>
+										The animation above was run on 100 timestamps with data missing at
+										timestamps 10, 11, 12, 30, 31, 32, 33, 34, 50, 51 and 52. The initial state was set to x=0, y=0 and theta=0 as seen in
+										the plot.
+									</li>
+									<li>
+										The predictions can be seen to overshoot at corners as we modelled our system as having constant velocity.
+										At the corners the system cannot estimate that it is decelerating but just updates it position based off the
+										last velocity estimate.</li>
+									<li>
+										At the discontinuities we can see that the robot tries to follow a linear path since we dont have position input coming in
+										but just the system prediction based on last velocity estimate.
+									</li>
+								</ul>
 								</p>
 
 
@@ -500,6 +518,19 @@
 									<h5 id="kalman-filter-constant-velocity-model-plot-of-variances-in-x-y-and-theta">kalman filter (constant velocity
 										model) plot of variances in x, y and theta</h5>
 								</center>
+								<p>
+								<ul style="list-style-type: disc">
+									<li>
+										The variances at x, y and theta are plotted in the graph above and we can see that when the position data goes missing,
+										the kalman filter will update its position at the same time say that we have now more noise in the system and hence less accuracy
+										in the estimate.
+									</li>
+									<li>
+										These variances fall back close to zero once the measurements become available.
+									</li>
+									
+								</ul>
+								</p>
 
 
 
