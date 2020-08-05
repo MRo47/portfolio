@@ -105,12 +105,12 @@
 									</ul>
 								</p>
 								<p>Lets start with some color</p>
-								<center>
+								<!-- <center>
 									<div class="work-img">
 										<img src="assets/img/works/KF_fusion_anim.gif" alt="">
 									</div>
 									<h5 id="block-diagram-of-kalman-filter">Block diagram of kalman filter</h5>
-								</center>
+								</center> -->
 								
 
 
@@ -396,17 +396,17 @@
 
 								
 								<h3 id="designing-kalman-filters">Designing Kalman Filters</h3>
-								<p>Designing an application specific kalman filter involves defining the correct matrices based on the chosen state
-									model and measurement (sensors). A good sensor noise model would yeild an accurate filter.</p>
+								<p>Designing an application specific kalman filter involves defining the correct matrices based on the chosen state space
+									model and measurement model (sensors).</p>
 								
 								
 								
 								<h3 id="kalman-filter-constant-velocity-model">Kalman Filter (Constant velocity model)</h3>
-								<p>here we adapt the equations above to model a simple constant velocity model of kalman filter where we neglect
-									acceleration and higher order terms for linearising the system. This filter although very simple would suffice for
-									linear motion as we assume constant velocity motion of a robot. The only measurement given here will be from a
-									position sensor that has some degree of inaccuracy.</p>
-								<p>The design method flows as fllows</p>
+								<p> The equations for kalman filter above will be used in this section to model a simple constant velocity model 
+									of kalman filter where we neglect acceleration and higher order terms for linearising the system.
+									The only measurement given here will be from a position sensor (like GPS that monitors the robots position in x, y and yaw)
+									that has some degree of inaccuracy.</p>
+								<p>The design method flows as follows</p>
 								<ol style="list-style-type: decimal">
 									<li>Here the same dynamic model is used as above (position and velocity)</li>
 								</ol>
@@ -425,7 +425,7 @@
 								</center>
 								<ol start="3" style="list-style-type: decimal">
 									<li>Process noise matrix <img src="https://render.githubusercontent.com/render/math?math=Q"> in this case will be
-										due to neglecting acceleration and higher order differentials. It remains the same as above.</li>
+										due to neglecting acceleration and higher order differentials. It remains the same.</li>
 								</ol>
 								<center>
 									<img src="https://latex.codecogs.com/png.latex?\inline&space;\dpi{150}&space;\large&space;Q_a&space;=&space;\begin{bmatrix}&space;\sigma_{\ddot{x}}^2&space;&&space;0&space;&&space;0&space;\\&space;0&space;&&space;\sigma_{\ddot{y}}^2&space;&&space;0&space;\\&space;0&space;&&space;0&space;&&space;\sigma_{\ddot{\theta}}^2&space;\end{bmatrix}"
@@ -450,6 +450,37 @@
 									<li>Once the above matrices have been defined the only work that is left is to plug in the values to the kalman
 										filter algorithm. The prediction step is run and correction is performed when a measurement is available.</li>
 								</ol>
+
+								<h5>Marker keys for animations</h5>
+								<p>
+								The animations that follow show the kalman filters tracking a robot. 
+								<ul>
+									<li>
+										The <b>green</b> line shows the <b>real
+											path</b> the robot followed in the simulation which is a sine curve.
+									</li>
+									<li>
+										The <b>corners on purple lines</b> indicate the <b>measurements</b>
+										from the position sensor, the <b>discontinuities</b> in this purple line indicate <b>missing data</b> from the position
+										sensor (for mimicking loss
+										of signal in GPS or asynchronous data).
+									</li>
+									<li>
+										The <b>red dots</b> indicate the position of robot as <b>predicted</b> by the kalman filter.
+									</li>
+									<li>
+										The <b>arrows</b> for respective plots indicate the <b>orientation</b> of the robot (yaw angle which is zero if the
+										robot is parallel
+										to the x axis).
+									</li>
+									<li>
+										Be advised that x coordinate in this animation has a linear relationship with time but has noise added hence will jump back
+										and forth depending on the value. The y coordinate has a non linear relationship and hence the sine curve. Refer the modules/datagen.py
+										section for the motion model.
+									</li>
+								</ul>  
+								
+								</p>
 								<center>
 									<div class="work-img">
 										<img src="assets/img/works/KF_constant_velocity_anim.gif" />
@@ -457,6 +488,11 @@
 									<h5 id="kalman-filter-constant-velocity-model-tracking-robot-position">kalman filter (constant velocity model) tracking
 										robot position</h5>
 								</center>
+								<p>The animation above was run on 100 timestamps with data missing at
+								timestamps 10, 11, 12, 30, 31, 32, 33, 34, 50, 51 and 52. The initial state was 0,0,0 as seen in the plot. 
+								</p>
+
+
 								<center>
 									<div class="work-img">
 										<img src="assets/img/works/KF_constant_velocity_err.png" />
