@@ -678,45 +678,153 @@
 								
 
 								<h3 id="experiments">Experiments</h3>
-								<center>
-									<div class="work-img">
-										<img src="assets/img/works/KF_DR_no_acc_anim.gif" />
-									</div>	
-									<h5
-										id="kalman-filter-sensor-fusion-model-tracking-robot-position-with-position-input-only-imu-switched-off-at-20-iterations">
-										kalman filter (sensor fusion model) tracking robot position with position input only (imu switched off at 20
-										iterations)</h5>
-								</center>
-								<center>
-									<div class="work-img">
-										<img src="assets/img/works/KF_DR_no_acc_err.png" />
-									</div>
-									<h5 id="kalman-filter-sensor-fusion-model-plot-of-variances-in-x-y-and-theta-1">kalman filter (sensor fusion model) plot
-										of variances in x, y and theta</h5>
-								</center>
-								<center>
-									<div class="work-img">
-										<img src="assets/img/works/dead_reckoning_meme.jpg" />
-									</div>
-									<h5 id="how dead reckoning looks like:- you can feel it but you cant see it">
-										how dead reckoning looks like
-									</h5>
-								</center>
-								<center>
-									<div class="work-img">
-										<img src="assets/img/works/KF_DR_no_pos_anim.gif" />
-									</div>
-									<h5 id="kalman-filter-sensor-fusion-model-dead-reckoning-position-sensor-switched-off-at-20-iterations">kalman filter
-										(sensor fusion model) dead reckoning (position sensor switched off at 20 iterations)</h5>
-								</center>
-								<center>
-									<div class="work-img">
-										<img src="assets/img/works/KF_DR_no_pos_err.png" alt="">
-									</div>
-									<h5 id="kalman-filter-sensor-fusion-model-plot-of-variances-in-x-y-and-theta-2">kalman filter (sensor fusion model) plot
-										of variances in x, y and theta</h5>
-									<!-- <img src="assets/img/works/KF_DR_no_pos_err.png" /> -->
-								</center>
+
+								<p>
+									In this section we do some experiments with the sensor fusion version of the kalman filter discussed above.
+								</p>
+
+								<br>
+
+								<ol style="list-style-type: decimal">
+
+									<li>
+										We switch off the imu sensor (acceleration) after 20 timestamps (in real life this could be a failing sensor). The position
+										sensor does keep sending synchronous inputs to the system. The initial state was set to x=0, y=0 and theta=0, also the velocities and accelerations
+										of respective variables were set to 0.
+
+										<br>
+
+										<center>
+											<div class="work-img">
+												<img src="assets/img/works/KF_DR_no_acc_anim.gif" />
+											</div>
+											<h5
+												id="kalman-filter-sensor-fusion-model-tracking-robot-position-with-position-input-only-imu-switched-off-at-20-iterations">
+												kalman filter (sensor fusion model) tracking robot position with position input only (imu switched off at 20
+												iterations)</h5>
+										</center>
+										
+										<br>
+										
+										<p>
+										<ul style="list-style-type: disc">
+											<li>
+												From the animation we can see that the kalman filter is able to function even though the acceleration input is
+												not avaiable to the system and does a very good job in estimating the acceleration of the robot.
+											</li>
+											<li>
+												The acceleration estimate is sligtly delyaed compared to the true value.
+											</li>
+										</ul>
+										</p>
+
+										<br>
+
+										<center>
+											<div class="work-img">
+												<img src="assets/img/works/KF_DR_no_acc_err.png" />
+											</div>
+											<h5 id="kalman-filter-sensor-fusion-model-plot-of-variances-in-x-y-and-theta-1">kalman filter (sensor fusion model)
+												plot
+												of variances in x, y and theta</h5>
+										</center>
+
+										<br>
+
+										<p>
+										<ul style="list-style-type: disc">
+											<li>
+												From the noise estimates of the system it can be seen that the values are slightly higher than actual sensor fusion
+												model.
+											</li>
+											<li>
+												At the corners we can see that the noise levels increase which corresponds to the delayed acceleration estimates.
+											</li>
+											<font size="-1">*I suggest touching your nose to the screen at value 50 on the variance(y) graph and moving back you head slowly till
+											you notice the changes in values*</font>
+										</ul>
+										</p>
+
+									</li>
+
+									<br>
+									
+									<li>
+										We switch off the position sensor (gps) after 20 timestamps (in real life this could be a failing sensor or a car going
+										into a tunnel losing gps signal). The imu sensor does keep sending synchronous inputs to the system.
+										The initial state was set to x=0, y=0 and theta=0, also the velocities and accelerations of respective variables were
+										set to 0.
+
+										<center>
+											<div class="work-img">
+												<img src="assets/img/works/KF_DR_no_pos_anim.gif" />
+											</div>
+											<h5 id="kalman-filter-sensor-fusion-model-dead-reckoning-position-sensor-switched-off-at-20-iterations">kalman
+												filter
+												(sensor fusion model) dead reckoning (position sensor switched off at 20 iterations)</h5>
+										</center>
+
+										<br>
+
+										<ul style="list-style-type: disc">
+											<li>
+												From the animation we can see that the kalman filter is not able to track the robot right after the position sensor
+												stops sending in data. The estimates do resemble a sine curve as we have acceleration still coming in from the
+												imu.
+											</li>
+											<li>
+												The initial offset just before the position sensor switched off will be almost constant in the system as is seen
+												from the graph.
+											</li>
+											<li>
+												This is called dead reckoning where we try to calculate the robots current position using the previously computed
+												position and looks like the following.
+											</li>
+										</ul>
+
+										<br>
+
+										<center>
+											<div class="work-img">
+												<img src="assets/img/works/dead_reckoning_meme.jpg" />
+											</div>
+											<h5 id="how dead reckoning looks like:- you can feel it but you cant see it">
+												how dead reckoning looks like
+											</h5>
+										</center>
+
+										<br>
+										
+										<center>
+											<div class="work-img">
+												<img src="assets/img/works/KF_DR_no_pos_err.png" alt="">
+											</div>
+											<h5 id="kalman-filter-sensor-fusion-model-plot-of-variances-in-x-y-and-theta-2">kalman filter (sensor fusion model)
+												plot
+												of variances in x, y and theta</h5>
+											<!-- <img src="assets/img/works/KF_DR_no_pos_err.png" /> -->
+										</center>
+
+										<br>
+
+										<p>
+										<ul style="list-style-type: disc">
+											<li>
+												To compute the position, the acceleration value is integrated twice and hence the noise values add up in the system
+												as can be seen from the variance.
+											</li>
+											<li>
+												The errors also rise exponentially immediately after the position sensor is switched off. Which is a good sign 
+												that our robot knows its position estimates are incorrect.
+											</li>
+											<font size="-1">*I think I am in london but I'm not sure I might just be in UK ;-)*</font>
+										</ul>
+										</p>
+
+									</li>
+
+								</ol>
+
 								<h3 id="design-notes">Design notes</h3>
 								<ol style="list-style-type: decimal">
 									<li>The Q matrix values should be selected as a value between 0 and 1. the values can be tuned looking at system
