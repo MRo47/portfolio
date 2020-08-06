@@ -450,9 +450,12 @@
 										filter algorithm. The prediction step is run and correction is performed when a measurement is available.</li>
 								</ol>
 
-								<h4>Marker keys for animations</h4>
+
+
+								<h4 id="anim_key">Legend for animations</h4>
 								<p>
-								The animations that follow show the kalman filters tracking a robot. 
+								The animations that follow show the kalman filters tracking a robot. The points below explain the color schemes 
+								and markers used in the plots.
 								<ul style="list-style-type: disc">
 									<li>
 										The <b>green</b> line shows the <b>real
@@ -482,7 +485,9 @@
 										of each variable at some timestamp. This plots are not given for the constant velocity model as they are not 
 										part of the state variable and hence cannot be observed.
 									</li>
-								</ul>  
+								</ul>
+
+								<br>
 								
 								</p>
 								<center>
@@ -492,12 +497,15 @@
 									<h5 id="kalman-filter-constant-velocity-model-tracking-robot-position">kalman filter (constant velocity model) tracking
 										robot position</h5>
 								</center>
+								
+								<br>
+
 								<p>
 								<ul style="list-style-type: disc">
 									<li>
 										The animation above was run on 100 timestamps with data missing at
-										timestamps 10, 11, 12, 30, 31, 32, 33, 34, 50, 51 and 52. The initial state was set to x=0, y=0 and theta=0 as seen in
-										the plot.
+										timestamps 10, 11, 12, 30, 31, 32, 33, 34, 50, 51 and 52. The initial state was set to x=0, y=0 and theta=0,
+										also the velocities of respective variables were set to 0 as seen in the plot.
 									</li>
 									<li>
 										The predictions can be seen to overshoot at corners as we modelled our system as having constant velocity.
@@ -510,6 +518,7 @@
 								</ul>
 								</p>
 
+								<br>
 
 								<center>
 									<div class="work-img">
@@ -518,12 +527,15 @@
 									<h5 id="kalman-filter-constant-velocity-model-plot-of-variances-in-x-y-and-theta">kalman filter (constant velocity
 										model) plot of variances in x, y and theta</h5>
 								</center>
+								
+								<br>
+								
 								<p>
 								<ul style="list-style-type: disc">
 									<li>
-										The variances at x, y and theta are plotted in the graph above and we can see that when the position data goes missing,
-										the kalman filter will update its position at the same time say that we have now more noise in the system and hence less accuracy
-										in the estimate.
+										The variances at x, y and theta are plotted in the graph above. We can see that when the position data goes missing,
+										the kalman filter will predict the robot position at the same time say that we have now more noise in the system
+										and hence less accuracy in the estimate.
 									</li>
 									<li>
 										These variances fall back close to zero once the measurements become available.
@@ -531,7 +543,6 @@
 									
 								</ul>
 								</p>
-
 
 
 								<h3 id="kalman-filter-sensor-fusion">Kalman Filter (Sensor fusion)</h3>
@@ -574,27 +585,29 @@
 											<img src="https://latex.codecogs.com/png.latex?\dpi{150}&space;H_{pos}&space;=&space;\begin{bmatrix}&space;1&space;&&space;0&space;&&space;0&space;&&space;0&space;&&space;0&space;&&space;0&space;&&space;0&space;&&space;0&space;&&space;0&space;\\&space;0&space;&&space;1&space;&&space;0&space;&&space;0&space;&&space;0&space;&&space;0&space;&&space;0&space;&&space;0&space;&&space;0&space;\\&space;0&space;&&space;0&space;&&space;1&space;&&space;0&space;&&space;0&space;&&space;0&space;&&space;0&space;&&space;0&space;&&space;0&space;\\&space;\end{bmatrix}"
 												title="H_{pos} = \begin{bmatrix} 1 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\ 0 & 1 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\ 0 & 0 & 1 & 0 & 0 & 0 & 0 & 0 & 0 \\ \end{bmatrix}" />
 										</center>
+
+										The noise model for position sensor is given as
+
+										<center>
+											<img src="https://latex.codecogs.com/png.latex?\dpi{150}&space;R_{pos}&space;=&space;\begin{bmatrix}&space;\sigma_{x}^2&space;&&space;0&space;&&space;0&space;\\&space;0&space;&&space;\sigma_{y}^2&space;&&space;0&space;\\&space;0&space;&&space;0&space;&&space;\sigma_{{\theta}}^2&space;\end{bmatrix}"
+												title="R_{pos} = \begin{bmatrix} \sigma_{x}^2 & 0 & 0 \\ 0 & \sigma_{y}^2 & 0 \\ 0 & 0 & \sigma_{{\theta}}^2 \end{bmatrix}" />
+										</center>
 									</li>
-								</ol>
-								The noise model for position sensor is given as
-								<center>
-									<img src="https://latex.codecogs.com/png.latex?\dpi{150}&space;R_{pos}&space;=&space;\begin{bmatrix}&space;\sigma_{x}^2&space;&&space;0&space;&&space;0&space;\\&space;0&space;&&space;\sigma_{y}^2&space;&&space;0&space;\\&space;0&space;&&space;0&space;&&space;\sigma_{{\theta}}^2&space;\end{bmatrix}"
-										title="R_{pos} = \begin{bmatrix} \sigma_{x}^2 & 0 & 0 \\ 0 & \sigma_{y}^2 & 0 \\ 0 & 0 & \sigma_{{\theta}}^2 \end{bmatrix}" />
-								</center>
-								<ol start="2" style="list-style-type: lower-roman">
+								
 									<li>IMU sensor model: needs matrix <img src="https://render.githubusercontent.com/render/math?math=H_{imu}"> which
 										has dimensions 3x9 since 3 variables are measured, acceleration in x, y and theta and the state has 9 variables.
 										<center>
 											<img src="https://latex.codecogs.com/png.latex?\dpi{150}&space;H_{imu}&space;=&space;\begin{bmatrix}&space;0&space;&&space;0&space;&&space;0&space;&&space;0&space;&&space;0&space;&&space;0&space;&&space;1&space;&&space;0&space;&&space;0&space;\\&space;0&space;&&space;0&space;&&space;0&space;&&space;0&space;&&space;0&space;&&space;0&space;&&space;0&space;&&space;1&space;&&space;0&space;\\&space;0&space;&&space;0&space;&&space;0&space;&&space;0&space;&&space;0&space;&&space;0&space;&&space;0&space;&&space;0&space;&&space;1&space;\\&space;\end{bmatrix}"
 												title="H_{imu} = \begin{bmatrix} 0 & 0 & 0 & 0 & 0 & 0 & 1 & 0 & 0 \\ 0 & 0 & 0 & 0 & 0 & 0 & 0 & 1 & 0 \\ 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 1 \\ \end{bmatrix}" />
 										</center>
+										The noise model for IMU is given as
+										<center>
+											<img src="https://latex.codecogs.com/png.latex?\dpi{150}&space;R_{imu}&space;=&space;\begin{bmatrix}&space;\sigma_{\ddot{x}}^2&space;&&space;0&space;&&space;0&space;\\&space;0&space;&&space;\sigma_{\ddot{y}}^2&space;&&space;0&space;\\&space;0&space;&&space;0&space;&&space;\sigma_{\ddot{\theta}}^2&space;\end{bmatrix}"
+												title="R_{imu} = \begin{bmatrix} \sigma_{\ddot{x}}^2 & 0 & 0 \\ 0 & \sigma_{\ddot{y}}^2 & 0 \\ 0 & 0 & \sigma_{\ddot{\theta}}^2 \end{bmatrix}" />
+										</center>
 									</li>
 								</ol>
-								The noise model for IMU is given as
-								<center>
-									<img src="https://latex.codecogs.com/png.latex?\dpi{150}&space;R_{imu}&space;=&space;\begin{bmatrix}&space;\sigma_{\ddot{x}}^2&space;&&space;0&space;&&space;0&space;\\&space;0&space;&&space;\sigma_{\ddot{y}}^2&space;&&space;0&space;\\&space;0&space;&&space;0&space;&&space;\sigma_{\ddot{\theta}}^2&space;\end{bmatrix}"
-										title="R_{imu} = \begin{bmatrix} \sigma_{\ddot{x}}^2 & 0 & 0 \\ 0 & \sigma_{\ddot{y}}^2 & 0 \\ 0 & 0 & \sigma_{\ddot{\theta}}^2 \end{bmatrix}" />
-								</center>
+								
 								<ol start="5" style="list-style-type: decimal">
 									<li>The measurement matrices above <img src="https://render.githubusercontent.com/render/math?math=H_{pos}">, <img
 											src="https://render.githubusercontent.com/render/math?math=R_{pos}"> are used to update the kalman filter
@@ -604,6 +617,9 @@
 										Given these updates the kalman filter can work asynchronously to update the state when a sensor measurement is
 										available.</li>
 								</ol>
+
+								<br>
+
 								<center>
 									<div class="work-img">
 										<img src="assets/img/works/KF_fusion_anim.gif" />
@@ -611,6 +627,35 @@
 									<h5 id="kalman-filter-sensor-fusion-model-tracking-robot-position">kalman filter (sensor fusion model) tracking robot
 										position</h5>
 								</center>
+
+								<br>
+
+								<p>*<a href="WD-kalman-filter.html#anim_key">animation legend</a> to understand the plots*</p>
+
+								<p>
+								<ul style="list-style-type: disc">
+									<li>
+										The animation above was run on 100 timestamps with position data missing at
+										timestamps 10, 11, 12, 30, 31, 32, 33, 34, 50, 51 and 52. The initial state was set to x=0, y=0 and theta=0, also
+										the velocities and accelerations of respective variables were set to 0.
+									</li>
+									<li>
+										The predictions now dont overshoot at the corners as we modelled our system accounting the acceleration.
+										At the corners the system can now react to the deceleration being measured from the imu sensor.
+									</li>
+									<li>
+										At the discontinuities for position we can see that the robot deviates less from the actual path as we still have an acceleration
+										input coming from the imu sensor.
+									</li>
+									<li>
+										Thus from the above animation we can conclude that having multiple sensors on the system not only improves 
+										the overall position estimate but also helps when one of the sensor is not recieving data (eg: say when a car enters the 
+										tunnel when we lose gps but the onboard imu and wheel encoders can still help us track its position till we are out
+										of the tunnel).
+									</li>
+								</ul>
+								</p>
+
 								<center>
 									<div class="work-img">
 										<img src="assets/img/works/KF_fusion_err.png" />
@@ -619,7 +664,18 @@
 										of variances in x, y and theta</h5>
 								</center>
 
+								<br>
 
+								<p>
+								<ul style="list-style-type: disc">
+									<li>
+										The variances at x, y and theta are plotted in the graph above. When the position data goes missing, the
+										variance increases and
+										falls right back when new position data is available.
+									</li>
+								</ul>
+								</p>
+								
 
 								<h3 id="experiments">Experiments</h3>
 								<center>
@@ -673,6 +729,13 @@
 									<li>Multiple sensors can be fused using the kalman filter given the H and R matrices for those sensors. An update
 										step can be performed when any of the sensor measurements are available. Hence using this design the kalman
 										filter can run at a maximum frequency which is the frequency of the slowest sensor.</li>
+								</ol>
+
+
+
+								<h3 id="design-notes">References</h3>
+								<ol style="list-style-type: decimal">
+
 								</ol>
 
 
