@@ -68,7 +68,7 @@
 						<!-- page-title -->
 						<div class="page-title pb-40">
 							<h2 class="page-title__title">Kalman Filter</h2>
-							<p class="page-title__text">A comprehensive 2D <a href="https://en.wikipedia.org/wiki/Rudolf_E._K%C3%A1lm%C3%A1n">kalman</a> filter tutorial for self<sub>t+dt</sub> and any explorer from space time.</p>
+							<p class="page-title__text">A comprehensive 2D <a href="https://en.wikipedia.org/wiki/Rudolf_E._K%C3%A1lm%C3%A1n">Kalman</a> filter tutorial for self<sub>t+dt</sub> and any explorer from space time.</p>
 							<div class="page-title__divider"></div>
 						</div><!-- End / page-title -->
 						
@@ -114,7 +114,7 @@
 
 
 								<h3>Gaussian distribution and product of 2 gaussian PDFs</h3>
-								<p>Before we dive in, lets understand how probability distribution functions (PDFs) work, which form the basis of the mathamatics we will be
+								<p>Before we dive in, lets understand how probability distribution functions (PDFs) work, which form the basis of the mathematics we will be
 									looking later in this article
 								</p>
 								<p>For 2 <a href="https://en.wikipedia.org/wiki/Normal_distribution"> normally (Gaussian) </a> 
@@ -172,7 +172,7 @@
 										in the <img src="https://render.githubusercontent.com/render/math?math=P"> matrix.
 									</li>
 									<li>The <b>first input</b> then becomes the <b>prior</b> knowledge of state in the kalman filter and will be updated
-										continously as new measurements come into the system.
+										continuously as new measurements come into the system.
 									</li>
 									<li>The <b>prediction</b> step predicts the next state of the system given the current state. The system noise is
 										added to the
@@ -239,7 +239,7 @@
 									control inputs they can be modelled in these matrices to predict the next state and accordingly Q (described below) 
 									should be updated to account for the noise input (eg: A gas pedal could be given as a control input to estimate the
 									acceleration in which case the B matrix remains as is, since acceleration is given as input).</p>
-								<p><img src="https://render.githubusercontent.com/render/math?math=w"> represents the uncertainity or noise in the
+								<p><img src="https://render.githubusercontent.com/render/math?math=w"> represents the uncertainty or noise in the
 									estimate of the system state as we exclude the higher order differentials in the system.</p>
 
 
@@ -254,7 +254,7 @@
 									<p><img src="https://latex.codecogs.com/png.latex?\inline&space;\dpi{150}&space;\large&space;Q&space;=&space;BQ_aB^T"
 											title="\large Q = BQ_aB^T" /></p>
 								</center>
-								<p>where <img src="https://render.githubusercontent.com/render/math?math=Q_a"> is the unceratainity or noise in the
+								<p>where <img src="https://render.githubusercontent.com/render/math?math=Q_a"> is the uncertainty or noise in the
 									acceleration given as variance (square of standard deviation) of acceleration.
 								</p>
 								<center>
@@ -284,13 +284,13 @@
 											title="\large Y_{t+1} = H X_{t+1} + V" /></p>
 								</center>
 								<p>The translation matrix <img src="https://render.githubusercontent.com/render/math?math=H"> allows the conversion of
-									meausrements (eg: units, polar or cartesian form) coming in from sensors to the form represented by the state space model.</p>
+									measurements (eg: units, polar or cartesian form) coming in from sensors to the form represented by the state space model.</p>
 								<p>in our case say we have a local gps system that sends us position updates in same units hence the value 1, this value
 									will change if we use different units for measurement or if we have another representation of position like polar
-									instead of cartesian coordiantes.</p>
-								<p>the 3 rows indicate that we have 3 meausrements x,y,<img src="https://render.githubusercontent.com/render/math?math=\theta">
+									instead of cartesian coordinates.</p>
+								<p>the 3 rows indicate that we have 3 measurements x,y,<img src="https://render.githubusercontent.com/render/math?math=\theta">
 									coming from our local GPS while the 6 columns represent the states in our system.
-									Since we dont measure velocity, these columns have value 0.</p>
+									Since we don't measure velocity, these columns have value 0.</p>
 								<center>
 									<p><img src="https://latex.codecogs.com/png.latex?\inline&space;\dpi{150}&space;\large&space;H&space;=&space;\begin{bmatrix}&space;1&space;&&space;0&space;&&space;0&space;&&space;0&space;&&space;0&space;&&space;0\\&space;0&space;&&space;1&space;&&space;0&space;&&space;0&space;&&space;0&space;&&space;0\\&space;0&space;&&space;0&space;&&space;1&space;&&space;0&space;&&space;0&space;&&space;0&space;\end{bmatrix}"
 											title="\large H = \begin{bmatrix} 1 & 0 & 0 & 0 & 0 & 0\\ 0 & 1 & 0 & 0 & 0 & 0\\ 0 & 0 & 1 & 0 & 0 & 0 \end{bmatrix}" />
@@ -310,7 +310,7 @@
 								<p>As there are no perfect sensors we have to model the noise in the sensors. Sensor noise in kalman filters is assumed
 									to be <a href=https://en.wikipedia.org/wiki/Normal_distribution>normally distributed</a> hence is represented by the variance
 									or the spread of the value measured by the sensors. Assuming that the measurement noise of the sensors in
-									different dimesnions is uncorrelated, we set our non diagonal values in the measurement noise matrix to zero.</p>
+									different dimensions is uncorrelated, we set our non diagonal values in the measurement noise matrix to zero.</p>
 								<center>
 									<p><img src="https://latex.codecogs.com/png.latex?\dpi{150}&space;R&space;=&space;HH^TV&space;\newline&space;\newline&space;V&space;=&space;\begin{bmatrix}&space;\sigma_{x}^2&space;&&space;0&space;&&space;0&space;\\&space;0&space;&&space;\sigma_{y}^2&space;&&space;0&space;\\&space;0&space;&&space;0&space;&&space;\sigma_{{\theta}}^2&space;\end{bmatrix}"
 											title="R = HH^TV \newline \newline V = \begin{bmatrix} \sigma_{x}^2 & 0 & 0 \\ 0 & \sigma_{y}^2 & 0 \\ 0 & 0 & \sigma_{{\theta}}^2 \end{bmatrix}" />
@@ -353,7 +353,7 @@
 									<p><img src="https://latex.codecogs.com/png.latex?\inline&space;\dpi{150}&space;\large&space;\newline&space;K&space;=&space;P_tH^TI^{-1}&space;\\&space;\newline&space;I&space;=&space;HP_tH^T&plus;R&space;\\"
 											title="\large \newline K = P_tH^TI^{-1} \\ \newline I = HP_tH^T+R \\" /></p>
 								</center>
-								<p>The general intution for kalman gain is as the equation below. Higher the noise in measurements the less we trust the
+								<p>The general intuition for kalman gain is as the equation below. Higher the noise in measurements the less we trust the
 									external measurements w.r.t our predicted state hence lower the gain.</p>
 								<center>
 									<p><img src="https://latex.codecogs.com/png.latex?\inline&space;\dpi{150}&space;\large&space;$K&space;=&space;\frac{\text{System&space;Noise&space;(P)}}{\text{System&space;Noise&space;(P)}&space;&plus;&space;\text{Measurement&space;Noise&space;(R)}&space;}$"
@@ -364,7 +364,7 @@
 
 
 								<h3 id="correction-step">Correction step</h3>
-								<p>Here we update our system state using our predections and measurements.</p>
+								<p>Here we update our system state using our predictions and measurements.</p>
 								<center>
 									<p><img src="https://latex.codecogs.com/png.latex?\inline&space;\dpi{150}&space;\large&space;$X_{t&plus;1}&space;=&space;X_{t&plus;1}&space;&plus;&space;K[Y_{t&plus;1}&space;-&space;HX_{t&plus;1}]$"
 											title="\large $X_{t+1} = X_{t+1} + K[Y_{t+1} - HX_{t+1}]$" /></p>
@@ -507,7 +507,7 @@
 										At the corners the system cannot estimate that it is decelerating but just updates it position based off the
 										last velocity estimate.</li>
 									<li>
-										At the discontinuities we can see that the robot tries to follow a linear path since we dont have position input coming in
+										At the discontinuities we can see that the robot tries to follow a linear path since we don't have position input coming in
 										but just the system prediction based on last velocity estimate.
 									</li>
 								</ul>
@@ -589,7 +589,7 @@
 									<li>Measurement model in this case has 2 sensors which perform the updates</li>
 								</ol>
 								<ol style="list-style-type: lower-roman">
-									<li>Position sensor model: needs matrix <img src="https://render.githubusercontent.com/render/math?math=H_{pos}">
+									<li><b>Position sensor model:</b> needs matrix <img src="https://render.githubusercontent.com/render/math?math=H_{pos}">
 										which has dimensions 3x9 since 3 variables are measured (x, y and theta) and the state has 9 variables.
 										<center>
 											<img src="https://latex.codecogs.com/png.latex?\dpi{150}&space;H_{pos}&space;=&space;\begin{bmatrix}&space;1&space;&&space;0&space;&&space;0&space;&&space;0&space;&&space;0&space;&&space;0&space;&&space;0&space;&&space;0&space;&&space;0&space;\\&space;0&space;&&space;1&space;&&space;0&space;&&space;0&space;&&space;0&space;&&space;0&space;&&space;0&space;&&space;0&space;&&space;0&space;\\&space;0&space;&&space;0&space;&&space;1&space;&&space;0&space;&&space;0&space;&&space;0&space;&&space;0&space;&&space;0&space;&&space;0&space;\\&space;\end{bmatrix}"
@@ -606,7 +606,7 @@
 										<br>
 									</li>
 								
-									<li>IMU sensor model: needs matrix <img src="https://render.githubusercontent.com/render/math?math=H_{imu}"> which
+									<li><b>IMU sensor model:</b> needs matrix <img src="https://render.githubusercontent.com/render/math?math=H_{imu}"> which
 										has dimensions 3x9 since 3 variables are measured, acceleration in x, y and theta and the state has 9 variables.
 										<br>
 										<center>
@@ -625,7 +625,7 @@
 								<ol start="5" style="list-style-type: decimal">
 									<li>The measurement matrices above <img src="https://render.githubusercontent.com/render/math?math=H_{pos}">, <img
 											src="https://render.githubusercontent.com/render/math?math=R_{pos}"> are used to update the kalman filter
-										when position inputs are avialble to the kalman filter, Matrices <img
+										when position inputs are available to the kalman filter, Matrices <img
 											src="https://render.githubusercontent.com/render/math?math=H_{imu}">, <img
 											src="https://render.githubusercontent.com/render/math?math=R_{imu}"> are used when imu data is available.
 										Given these updates the kalman filter can work asynchronously to update the state when a sensor measurement is
@@ -655,7 +655,7 @@
 										the velocities and accelerations of respective variables were set to 0.
 									</li>
 									<li>
-										The predictions now dont overshoot at the corners as we modelled our system accounting the acceleration.
+										The predictions now don't overshoot at the corners as we modelled our system accounting the acceleration.
 										At the corners the system can now react to the deceleration being measured from the imu sensor.
 									</li>
 									<li>
@@ -668,7 +668,7 @@
 									</li>
 									<li>
 										Thus from the above animation we can conclude that having multiple sensors on the system not only improves 
-										the overall position estimate but also helps when one of the sensor is not recieving data (eg: say when a car enters the 
+										the overall position estimate but also helps when one of the sensor is not receiving data (eg: say when a car enters the 
 										tunnel when we lose gps but the onboard imu and wheel encoders can still help us track its position till we are out
 										of the tunnel).
 									</li>
@@ -693,7 +693,7 @@
 										falls right back when new position data is available.
 									</li>
 									<li>
-										When both sensors are switched off individually at different times we can see that the estimate doesnt gather a lot of noise,
+										When both sensors are switched off individually at different times we can see that the estimate doesn't gather a lot of noise,
 										except when both sensors are both switched off at timestamps 30, 31, 33 and 34 we see that the noise (covariance) increases.
 									</li>
 								</ul>
@@ -851,11 +851,11 @@
 								<h3 id="design-notes">Design notes</h3>
 								<ol style="list-style-type: decimal">
 									<li>The Q matrix values should be selected as a value between 0 and 1. the values can be tuned looking at system
-										outputs. The general intution for Q is, higher the values the less system will trust its prediction as compared
+										outputs. The general intuition for Q is, higher the values the less system will trust its prediction as compared
 										to measurements. Q diagonals cannot be set to 0 as this will imply a perfect system giving kalman gain 0 and
 										hence the system will no longer update itself based on measurements rather trust its predictions fully.</li>
 									<li>The R matrix can be experimentally determined by taking a standard deviation of the error between sensor
-										measurements and true values. This requires a true measurement to be avialble of the measured quantity, apart
+										measurements and true values. This requires a true measurement to be available of the measured quantity, apart
 										from what is measured by the sensor.</li>
 									<li>Multiple sensors can be fused using the kalman filter given the H and R matrices for those sensors. An update
 										step can be performed when any of the sensor measurements are available. Hence using this design the kalman
@@ -875,7 +875,7 @@
 										with clear explanation of the single dimensional kalman filter.
 									</li>
 									<li>
-										Linkedin <a href="https://www.linkedin.com/pulse/2d-object-tracking-tutorial-kalman-filter-matlab-code-al-ahdab">tutorial</a>
+										LinkedIn <a href="https://www.linkedin.com/pulse/2d-object-tracking-tutorial-kalman-filter-matlab-code-al-ahdab">tutorial</a>
 										by Mohammad Al-Ahdab.
 									</li>
 								</ol>
