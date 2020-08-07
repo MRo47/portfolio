@@ -255,7 +255,7 @@
 											title="\large Q = BQ_aB^T" /></p>
 								</center>
 								<p>where <img src="https://render.githubusercontent.com/render/math?math=Q_a"> is the unceratainity or noise in the
-									acceleration given as standard deviation of acceleration
+									acceleration given as variance (square of standard deviation) of acceleration.
 								</p>
 								<center>
 									<p><img src="https://latex.codecogs.com/png.latex?\inline&space;\dpi{150}&space;\large&space;Q_a&space;=&space;\begin{bmatrix}&space;\sigma_{\ddot{x}}^2&space;&&space;\sigma_{\ddot{y}}.\sigma_{\ddot{x}}&space;&&space;\sigma_{\ddot{\theta}}.\sigma_{\ddot{y}}&space;\\&space;\sigma_{\ddot{x}}.\sigma_{\ddot{y}}&space;&&space;\sigma_{\ddot{y}}^2&space;&&space;\sigma_{\ddot{\theta}}.\sigma_{\ddot{y}}&space;\\&space;\sigma_{\ddot{x}}.\sigma_{\ddot{\theta}}&space;&&space;\sigma_{\ddot{y}}.\sigma_{\ddot{\theta}}&space;&&space;\sigma_{\ddot{\theta}}^2&space;\end{bmatrix}"
@@ -302,14 +302,14 @@
 								<h3 id="measurement-noise">Measurement noise</h3>
 								<center>
 									<div class="work-img">
-										<img src="assets/img/works/like_a_gauss.jpeg" alt="">
+										<img src="assets/img/works/like_a_gauss.jpeg" alt="" width="400">
 									</div>
 									<h5 id="noise modelling">Thank <a href="https://en.wikipedia.org/wiki/Carl_Friedrich_Gauss">Carl Friedrich Gauss</a>
 										for the bell curve</h5>
 								</center>
 								<p>As there are no perfect sensors we have to model the noise in the sensors. Sensor noise in kalman filters is assumed
-									to be <a href=https://en.wikipedia.org/wiki/Normal_distribution>normally distributed</a> hence is represented by the standard
-									deviation or the spread of the value measured by the sensors. Assuming that the measurement noise of the sensors in
+									to be <a href=https://en.wikipedia.org/wiki/Normal_distribution>normally distributed</a> hence is represented by the variance
+									or the spread of the value measured by the sensors. Assuming that the measurement noise of the sensors in
 									different dimesnions is uncorrelated, we set our non diagonal values in the measurement noise matrix to zero.</p>
 								<center>
 									<p><img src="https://latex.codecogs.com/png.latex?\dpi{150}&space;R&space;=&space;HH^TV&space;\newline&space;\newline&space;V&space;=&space;\begin{bmatrix}&space;\sigma_{x}^2&space;&&space;0&space;&&space;0&space;\\&space;0&space;&&space;\sigma_{y}^2&space;&&space;0&space;\\&space;0&space;&&space;0&space;&&space;\sigma_{{\theta}}^2&space;\end{bmatrix}"
@@ -326,13 +326,7 @@
 								<p>Now that we have modelled our system as well as the measurements coming into it we are ready to plug in our values
 									into the kalman filter.</p>
 								<p>The algorithm consists of 3 crucial steps: <b>Prediction, gain calculation and update</b></p>
-
-								<center>
-									<div class="work-img">
-										<img src="assets/img/works/yo_dawg.jpg" alt="">
-									</div>
-								</center>
-								
+				
 
 
 								<h3 id="prediction-step">Prediction step</h3>
@@ -546,6 +540,16 @@
 
 
 								<h3 id="kalman-filter-sensor-fusion">Kalman Filter (Sensor fusion)</h3>
+
+								<center>
+									<div class="work-img">
+										<img src="assets/img/works/yo_dawg.jpg" alt="">
+									</div>
+									<h5 id="yo_dawg">How sensor fusion works</h5>
+								</center>
+
+								<br>
+
 								<p>Here a kalman filter is designed that estimates the system state based on 2 sensor inputs (position sensor eg: gps
 									and an acceleration sensor eg: imu)</p>
 								<ol style="list-style-type: decimal">
