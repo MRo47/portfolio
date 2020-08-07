@@ -646,7 +646,8 @@
 								<ul style="list-style-type: disc">
 									<li>
 										The animation above was run on 100 timestamps with position data missing at
-										timestamps 10, 11, 12, 30, 31, 32, 33, 34, 50, 51 and 52. The initial state was set to x=0, y=0 and theta=0, also
+										timestamps 10, 11, 12, 30, 31, 32, 33, 34, 50, 51 and 52, while acceleration data missing at
+										20, 21, 22, 30, 31, 33 and 34. The initial state was set to x=0, y=0 and theta=0, also
 										the velocities and accelerations of respective variables were set to 0.
 									</li>
 									<li>
@@ -656,6 +657,10 @@
 									<li>
 										At the discontinuities for position we can see that the robot deviates less from the actual path as we still have an acceleration
 										input coming from the imu sensor.
+									</li>
+									<li>
+										When acceleration data is missing it can be seen that the robot is still able to keep track of its position 
+										as we have gps data coming in. Although the acceleration slightly deviates from the ideal value.
 									</li>
 									<li>
 										Thus from the above animation we can conclude that having multiple sensors on the system not only improves 
@@ -682,6 +687,10 @@
 										The variances at x, y and theta are plotted in the graph above. When the position data goes missing, the
 										variance increases and
 										falls right back when new position data is available.
+									</li>
+									<li>
+										When both sensors are switched off individually at different times we can see that the estimate doesnt gather a lot of noise,
+										except when both sensors are both switched off at timestamps 30, 31, 33 and 34 we see that the noise (covariance) increases.
 									</li>
 								</ul>
 								</p>
