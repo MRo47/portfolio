@@ -388,6 +388,7 @@
 								<center>
 									<img src="https://latex.codecogs.com/png.latex?\dpi{150}&space;P_{t&plus;1}&space;=&space;(I_6&space;-&space;KH)P_{t&plus;1}"
 										title="P_{t+1} = (I_6 - KH)P_{t+1}" />
+									<br>
 									<p>where</p>
 									<img src="https://latex.codecogs.com/png.latex?\dpi{150}&space;I_6&space;=&space;\text{Identity&space;matrix&space;of&space;dimensions&space;6X6}"
 										title="I_6 = \text{Identity matrix of dimensions 6X6}" />
@@ -555,6 +556,7 @@
 											<img src="https://latex.codecogs.com/png.latex?\dpi{150}&space;X_{n}&space;=&space;\begin{bmatrix}&space;x_{n}&space;\\&space;y_{n}&space;\\&space;\theta_{n}&space;\\&space;\dot{x}_{n}&space;\\&space;\dot{y}_{n}&space;\\&space;\dot{\theta}_{n}&space;\\&space;\ddot{x}_{n}&space;\\&space;\ddot{y}_{n}&space;\\&space;\ddot{\theta}_{n}&space;\end{bmatrix}"
 												title="X_{n} = \begin{bmatrix} x_{n} \\ y_{n} \\ \theta_{n} \\ \dot{x}_{n} \\ \dot{y}_{n} \\ \dot{\theta}_{n} \\ \ddot{x}_{n} \\ \ddot{y}_{n} \\ \ddot{\theta}_{n} \end{bmatrix}" />
 										</center>
+										<br>
 									</li>
 									<li>Matrix <img src="https://render.githubusercontent.com/render/math?math=A"> now has the terms for acceleration
 										from equations of motion, matrix <img src="https://render.githubusercontent.com/render/math?math=B"> has terms
@@ -563,18 +565,22 @@
 											src="https://render.githubusercontent.com/render/math?math=U">. <img
 											src="https://render.githubusercontent.com/render/math?math=B"> will only be used to compute <img
 											src="https://render.githubusercontent.com/render/math?math=Q"> matrix.
+										<br>
 										<center>
 											<img src="https://latex.codecogs.com/png.latex?\dpi{150}&space;A&space;=&space;\begin{bmatrix}&space;1&space;&&space;0&space;&&space;0&space;&&space;t&space;&&space;0&space;&&space;0&space;&&space;\frac{t^2}{2}&space;&&space;0&space;&&space;0&space;\\&space;0&space;&&space;1&space;&&space;0&space;&&space;0&space;&&space;t&space;&&space;0&space;&&space;0&space;&&space;\frac{t^2}{2}&space;&&space;0&space;\\&space;0&space;&&space;0&space;&&space;1&space;&&space;0&space;&&space;0&space;&&space;t&space;&&space;0&space;&&space;0&space;&&space;\frac{t^2}{2}&space;\\&space;0&space;&&space;0&space;&&space;0&space;&&space;1&space;&&space;0&space;&&space;0&space;&&space;t&space;&&space;0&space;&&space;0&space;\\&space;0&space;&&space;0&space;&&space;0&space;&&space;0&space;&&space;1&space;&&space;0&space;&&space;0&space;&&space;t&space;&&space;0&space;\\&space;0&space;&&space;0&space;&&space;0&space;&&space;0&space;&&space;0&space;&&space;1&space;&&space;0&space;&&space;0&space;&&space;t&space;\\&space;0&space;&&space;0&space;&&space;0&space;&&space;0&space;&&space;0&space;&&space;0&space;&&space;1&space;&&space;0&space;&&space;0&space;\\&space;0&space;&&space;0&space;&&space;0&space;&&space;0&space;&&space;0&space;&&space;0&space;&&space;0&space;&&space;1&space;&&space;0&space;\\&space;0&space;&&space;0&space;&&space;0&space;&&space;0&space;&&space;0&space;&&space;0&space;&&space;0&space;&&space;0&space;&&space;1&space;\\&space;\end{bmatrix}&space;\text{&space;}&space;B&space;=&space;\begin{bmatrix}&space;\frac{t^3}{6}&space;&&space;0&space;&&space;0&space;\\&space;0&space;&&space;\frac{t^3}{6}&space;&&space;0&space;\\&space;0&space;&&space;0&space;&&space;\frac{t^3}{6}&space;\\&space;\frac{t^2}{2}&space;&&space;0&space;&&space;0&space;\\&space;0&space;&&space;\frac{t^2}{2}&space;&&space;0&space;\\&space;0&space;&&space;0&space;&&space;\frac{t^2}{2}&space;\\&space;t&space;&&space;0&space;&&space;0&space;\\&space;0&space;&&space;t&space;&&space;0&space;\\&space;0&space;&&space;0&space;&&space;t&space;\end{bmatrix}"
 												title="A = \begin{bmatrix} 1 & 0 & 0 & t & 0 & 0 & \frac{t^2}{2} & 0 & 0 \\ 0 & 1 & 0 & 0 & t & 0 & 0 & \frac{t^2}{2} & 0 \\ 0 & 0 & 1 & 0 & 0 & t & 0 & 0 & \frac{t^2}{2} \\ 0 & 0 & 0 & 1 & 0 & 0 & t & 0 & 0 \\ 0 & 0 & 0 & 0 & 1 & 0 & 0 & t & 0 \\ 0 & 0 & 0 & 0 & 0 & 1 & 0 & 0 & t \\ 0 & 0 & 0 & 0 & 0 & 0 & 1 & 0 & 0 \\ 0 & 0 & 0 & 0 & 0 & 0 & 0 & 1 & 0 \\ 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 1 \\ \end{bmatrix} \text{ } B = \begin{bmatrix} \frac{t^3}{6} & 0 & 0 \\ 0 & \frac{t^3}{6} & 0 \\ 0 & 0 & \frac{t^3}{6} \\ \frac{t^2}{2} & 0 & 0 \\ 0 & \frac{t^2}{2} & 0 \\ 0 & 0 & \frac{t^2}{2} \\ t & 0 & 0 \\ 0 & t & 0 \\ 0 & 0 & t \end{bmatrix}" />
 										</center>
+										<br>
 									</li>
 									<li>Process noise matrix <img src="https://render.githubusercontent.com/render/math?math=Q"> in this case will be
 										due to neglecting jerk and other higher order differentials. hence it is given as with the diagonal terms
 										accounting for noise in x, y and theta. The values of diagonals are selected as small values in range 0 to 1.
 										<center>
+											<br>
 											<img src="https://latex.codecogs.com/png.latex?\dpi{150}&space;Q_a&space;=&space;\begin{bmatrix}&space;\sigma_{\dddot{x}}^2&space;&&space;0&space;&&space;0&space;\\&space;0&space;&&space;\sigma_{\dddot{y}}^2&space;&&space;0&space;\\&space;0&space;&&space;0&space;&&space;\sigma_{\dddot{\theta}}^2&space;\end{bmatrix}"
 												title="Q_a = \begin{bmatrix} \sigma_{\dddot{x}}^2 & 0 & 0 \\ 0 & \sigma_{\dddot{y}}^2 & 0 \\ 0 & 0 & \sigma_{\dddot{\theta}}^2 \end{bmatrix}" />
 										</center>
+										<br>
 									</li>
 									<li>Measurement model in this case has 2 sensors which perform the updates</li>
 								</ol>
@@ -585,6 +591,7 @@
 											<img src="https://latex.codecogs.com/png.latex?\dpi{150}&space;H_{pos}&space;=&space;\begin{bmatrix}&space;1&space;&&space;0&space;&&space;0&space;&&space;0&space;&&space;0&space;&&space;0&space;&&space;0&space;&&space;0&space;&&space;0&space;\\&space;0&space;&&space;1&space;&&space;0&space;&&space;0&space;&&space;0&space;&&space;0&space;&&space;0&space;&&space;0&space;&&space;0&space;\\&space;0&space;&&space;0&space;&&space;1&space;&&space;0&space;&&space;0&space;&&space;0&space;&&space;0&space;&&space;0&space;&&space;0&space;\\&space;\end{bmatrix}"
 												title="H_{pos} = \begin{bmatrix} 1 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\ 0 & 1 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\ 0 & 0 & 1 & 0 & 0 & 0 & 0 & 0 & 0 \\ \end{bmatrix}" />
 										</center>
+										<br>
 
 										The noise model for position sensor is given as
 
@@ -592,14 +599,17 @@
 											<img src="https://latex.codecogs.com/png.latex?\dpi{150}&space;R_{pos}&space;=&space;\begin{bmatrix}&space;\sigma_{x}^2&space;&&space;0&space;&&space;0&space;\\&space;0&space;&&space;\sigma_{y}^2&space;&&space;0&space;\\&space;0&space;&&space;0&space;&&space;\sigma_{{\theta}}^2&space;\end{bmatrix}"
 												title="R_{pos} = \begin{bmatrix} \sigma_{x}^2 & 0 & 0 \\ 0 & \sigma_{y}^2 & 0 \\ 0 & 0 & \sigma_{{\theta}}^2 \end{bmatrix}" />
 										</center>
+										<br>
 									</li>
 								
 									<li>IMU sensor model: needs matrix <img src="https://render.githubusercontent.com/render/math?math=H_{imu}"> which
 										has dimensions 3x9 since 3 variables are measured, acceleration in x, y and theta and the state has 9 variables.
+										<br>
 										<center>
 											<img src="https://latex.codecogs.com/png.latex?\dpi{150}&space;H_{imu}&space;=&space;\begin{bmatrix}&space;0&space;&&space;0&space;&&space;0&space;&&space;0&space;&&space;0&space;&&space;0&space;&&space;1&space;&&space;0&space;&&space;0&space;\\&space;0&space;&&space;0&space;&&space;0&space;&&space;0&space;&&space;0&space;&&space;0&space;&&space;0&space;&&space;1&space;&&space;0&space;\\&space;0&space;&&space;0&space;&&space;0&space;&&space;0&space;&&space;0&space;&&space;0&space;&&space;0&space;&&space;0&space;&&space;1&space;\\&space;\end{bmatrix}"
 												title="H_{imu} = \begin{bmatrix} 0 & 0 & 0 & 0 & 0 & 0 & 1 & 0 & 0 \\ 0 & 0 & 0 & 0 & 0 & 0 & 0 & 1 & 0 \\ 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 1 \\ \end{bmatrix}" />
 										</center>
+										<br>
 										The noise model for IMU is given as
 										<center>
 											<img src="https://latex.codecogs.com/png.latex?\dpi{150}&space;R_{imu}&space;=&space;\begin{bmatrix}&space;\sigma_{\ddot{x}}^2&space;&&space;0&space;&&space;0&space;\\&space;0&space;&&space;\sigma_{\ddot{y}}^2&space;&&space;0&space;\\&space;0&space;&&space;0&space;&&space;\sigma_{\ddot{\theta}}^2&space;\end{bmatrix}"
@@ -740,7 +750,7 @@
 											<li>
 												At the corners we can see that the noise levels increase which corresponds to the delayed acceleration estimates.
 											</li>
-											<font size="-1">*I suggest touching your nose to the screen at value 50 on the variance(y) graph and moving back you head slowly till
+											<font size="-1">*I suggest touching your nose to the screen at value x=50 on the variance(y) graph and moving back you head slowly till
 											you notice the changes in values*</font>
 										</ul>
 										</p>
@@ -843,15 +853,19 @@
 
 								<h3 id="design-notes">References</h3>
 								<ol style="list-style-type: decimal">
-
+									<li>
+										These <a href="https://www.youtube.com/watch?v=CaCcOwJPytQ&list=PLX2gX-ftPVXU3oUFNATxGXY90AULiqnWT">Youtube lecture series</a> 
+										by Michel van Biezen.
+									</li>
+									<li>
+										<a href="https://www.kalmanfilter.net/kalman1d.html">Website</a>
+										with clear explanation of the single dimensional kalman filter.
+									</li>
+									<li>
+										Linkedin <a href="https://www.linkedin.com/pulse/2d-object-tracking-tutorial-kalman-filter-matlab-code-al-ahdab">lecture</a>
+										by Mohammad Al-Ahdab.
+									</li>
 								</ol>
-
-
-
-								<div class="work-img">
-
-								</div>
-								<div class="work-img"><img src="assets/img/works/KF_fusion_err.png" alt=""></div>
 								
 							</div>
 							<div class="sharebox__module awe-text-center">
