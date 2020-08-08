@@ -123,13 +123,15 @@
 									and variances 
 									<img src="https://render.githubusercontent.com/render/math?math=\sigma_1^2, \sigma_2^2">
 								</p>
-								<p>the mean in our case is the position where we expect the robot to be, while the variance signifies how far the spread of this value is.</p>
+								<p>the mean (<img src="https://render.githubusercontent.com/render/math?math=\mu">) in our case is the position where we 
+									expect the robot to be, while the variance (<img src="https://render.githubusercontent.com/render/math?math=\sigma^2">) 
+									signifies how far the spread of this value is.</p>
 								<center>
 									<img src="https://latex.codecogs.com/png.latex?\dpi{150}&space;\newline&space;x_1(t)&space;=&space;\frac{1}{\sqrt{2\pi\sigma_1^2}}e^{-\frac{(t-\mu_1)^2}{2\sigma_1^2}}&space;\\&space;\newline&space;x_2(t)&space;=&space;\frac{1}{\sqrt{2\pi\sigma_2^2}}e^{-\frac{(t-\mu_2)^2}{2\sigma_2^2}}"
 										title="\newline x_1(t) = \frac{1}{\sqrt{2\pi\sigma_1^2}}e^{-\frac{(t-\mu_1)^2}{2\sigma_1^2}} \\ \newline x_2(t) = \frac{1}{\sqrt{2\pi\sigma_2^2}}e^{-\frac{(t-\mu_2)^2}{2\sigma_2^2}}" />
 								</center>
 								<br>
-								<p>The product density of the above function will have mean and variance given as</p>
+								<p>The product of the gaussian function above will have mean and variance given as</p>
 								<center>
 									<img src="https://latex.codecogs.com/png.latex?\dpi{150}&space;\newline&space;\mu&space;=&space;\frac{\frac{\mu_1}{2\sigma_1^2}&space;&plus;&space;\frac{\mu_2}{2\sigma_2^2}}{\frac{1}{2\sigma_1^2}&space;&plus;&space;\frac{1}{2\sigma_2^2}}&space;=&space;\frac{\mu_1\sigma_2^2&space;&plus;&space;\mu_2\sigma_1^2}{\sigma_2^2&space;&plus;&space;\sigma_1^2}&space;\\&space;\newline&space;\newline&space;\sigma^2&space;=&space;\sigma_1^2&space;\sigma_2^2&space;=&space;\frac{1}{\frac{1}{\sigma_1^2}&space;&plus;&space;\frac{1}{\sigma_2^2}}&space;=&space;\frac{\sigma_1^2\sigma_2^2}{\sigma_1^2&space;&plus;&space;\sigma_2^2}"
 										title="\newline \mu = \frac{\frac{\mu_1}{2\sigma_1^2} + \frac{\mu_2}{2\sigma_2^2}}{\frac{1}{2\sigma_1^2} + \frac{1}{2\sigma_2^2}} = \frac{\mu_1\sigma_2^2 + \mu_2\sigma_1^2}{\sigma_2^2 + \sigma_1^2} \\ \newline \newline \sigma^2 = \sigma_1^2 \sigma_2^2 = \frac{1}{\frac{1}{\sigma_1^2} + \frac{1}{\sigma_2^2}} = \frac{\sigma_1^2\sigma_2^2}{\sigma_1^2 + \sigma_2^2}" />
@@ -142,10 +144,19 @@
 									</div>
 									<h5 id="gauss_math">State estimation using gaussian distribution</h5>
 								</center>
-								<p>The product of 2 gaussians (predicted with mean at 8.0 and measurement with mean at 10.0) gives us the resultant corrected value which is centered 
-									at mean = 9.154 and has a less spread (variance) than both the gaussians. This is how we correct the state of the measured variable 
-									when a new measurement is available and predict the next state using the system dynamic model which will be discussed later. Refer this 
-									video from mathworks on <a href="https://www.mathworks.com/videos/understanding-kalman-filters-part-3-optimal-state-estimator--1490710645421.html">
+								<p>As a thought experiment imagine a robot that moves in 1 dimension only (x). which has a 1D position sensor. The prior is where we assume our robot
+									started at and has a high variance value. The mean/position is 1.0 units but the high variance implies our value could be somewhere around 1.0 with
+									a high chance of being 1.0.
+									We predict the robot position in time given the velocity at 1.0 to be at at 8.0 but as can be seen has a bigger spread than the prior value 
+									as the predictions will be noisy based on the chosen system model (we guess so we add more noise). A position sensor measurement is found to 
+									be 10.0 and has a slightly lower spread.
+									The resultant product of the measured and predicted values is a gaussian which is the corrected value, the location of which can be 
+									found using the mean formula above (9.154) and the spread using the variance formula. From the plots we see that the resultant has a lower
+									spread than both the predicted and measured value which essentially means we are now more certain about the position of the robot than what we 
+									started with (prior). This corrected value becomes the prior for the next prediction and the cycle continues till sensor 
+									measurements are coming in and we get an accurate location of the robot. This is the basic principle behind kalman filter. Refer this 
+									video from mathworks on 
+									<a href="https://www.mathworks.com/videos/understanding-kalman-filters-part-3-optimal-state-estimator--1490710645421.html">
 									understanding kalman filters</a> to have a clearer picture of this concept. 
 								</p>
 								
