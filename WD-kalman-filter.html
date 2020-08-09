@@ -98,7 +98,7 @@
 									<ul style="list-style-type: disc">
 										<li> To understand the intuition behind kalman filters.</li>
 										<li> To design a kalman filter to track the position and orientation of an object moving on a 2D plane with 3
-										degrees of freedom (translation in x, translation in y and rotation along z or yaw).</li>
+										degrees of freedom (translation in x, translation in y and angular rotation along z or yaw).</li>
 										<li> To understand sensor fusion using
 										kalman filters.</li>
 										<li> To be able to design application specific kalman filters.</li>
@@ -145,19 +145,16 @@
 									<h5 id="gauss_math">State estimation using gaussian distribution</h5>
 								</center>
 								<p>As a thought experiment imagine a robot that moves in 1 dimension only (x). which has a 1D position sensor. The prior is where we assume our robot
-									started at and has a high variance value. The mean/position is 1.0 units but the high variance implies our value could be somewhere around 1.0 with
+									started at and has a high variance value (P). The mean/position is 1.0 units but the high variance implies our value could be somewhere around 1.0 with
 									a high chance of being 1.0.
 									We predict the robot position in time given the velocity at 1.0 to be at at 8.0 but as can be seen has a bigger spread than the prior value 
-									as the predictions will be noisy based on the chosen system model (we guess so we add more noise). A position sensor measurement is found to 
+									as the predictions will be noisy based on the chosen system model (we guess the position hence we add more noise). A position sensor measurement is found to 
 									be 10.0 and has a slightly lower spread.
 									The resultant product of the measured and predicted values is a gaussian which is the corrected value, the location of which can be 
 									found using the mean formula above (9.154) and the spread using the variance formula. From the plots we see that the resultant has a lower
 									spread than both the predicted and measured value which essentially means we are now more certain about the position of the robot than what we 
 									started with (prior). This corrected value becomes the prior for the next prediction and the cycle continues till sensor 
-									measurements are coming in and we get an accurate location of the robot. This is the basic principle behind kalman filter. Refer this 
-									video from mathworks on 
-									<a href="https://www.mathworks.com/videos/understanding-kalman-filters-part-3-optimal-state-estimator--1490710645421.html">
-									understanding kalman filters</a> to have a clearer picture of this concept. 
+									measurements are coming in and we get an accurate location of the robot. This is the basic principle behind kalman filter.
 								</p>
 								
 								
@@ -209,8 +206,8 @@
 								
 
 								<h3 id="motion-modelling">Dynamic model</h3>
-								<p>The following <a href="https://en.wikipedia.org/wiki/Equations_of_motion">equations of motion</a> describe the motion
-									of the object with acceptable accuracy (neglecting the higher order differentials of the <a
+								<p>The next set of <a href="https://en.wikipedia.org/wiki/Equations_of_motion">equations of motion</a> describe the motion
+									of the robot with acceptable accuracy (neglecting the higher order differentials of the <a
 										href="https://en.wikipedia.org/wiki/Taylor_series">Taylor series</a> approximation like jerk (literally!)).</p>
 								<p>the position of the object in unit time (t+1) given the velocity and acceleration can be predicted as...</p>
 								<center>
@@ -316,7 +313,7 @@
 										<img src="assets/img/works/like_a_gauss.jpeg" alt="" width="400">
 									</div>
 									<h5 id="noise modelling">Thank <a href="https://en.wikipedia.org/wiki/Carl_Friedrich_Gauss">Carl Friedrich Gauss</a>
-										for the bell curve</h5>
+										for the normal distribution</h5>
 								</center>
 								<p>As there are no perfect sensors we have to model the noise in the sensors. Sensor noise in kalman filters is assumed
 									to be <a href=https://en.wikipedia.org/wiki/Normal_distribution>normally distributed</a> hence is represented by the variance
@@ -394,6 +391,7 @@
 									<img src="https://latex.codecogs.com/png.latex?\dpi{150}&space;P_{t&plus;1}&space;=&space;(I_6&space;-&space;KH)P_{t&plus;1}"
 										title="P_{t+1} = (I_6 - KH)P_{t+1}" />
 									<br>
+									<br>
 									<p>where</p>
 									<img src="https://latex.codecogs.com/png.latex?\dpi{150}&space;I_6&space;=&space;\text{Identity&space;matrix&space;of&space;dimensions&space;6X6}"
 										title="I_6 = \text{Identity matrix of dimensions 6X6}" />
@@ -413,14 +411,14 @@
 									that has some degree of inaccuracy.</p>
 								<p>The design method flows as follows</p>
 								<ol style="list-style-type: decimal">
-									<li>Here the same dynamic model is used as above (position and velocity)</li>
+									<li>The state space model remains the same as we stated above</li>
 								</ol>
 								<center>
 									<img src="https://latex.codecogs.com/png.latex?\dpi{150}&space;X_{n}&space;=&space;\begin{bmatrix}&space;x_{n}&space;\\&space;y_{n}&space;\\&space;\theta_{n}&space;\\&space;\dot{x}_{n}&space;\\&space;\dot{y}_{n}&space;\\&space;\dot{\theta}_{n}&space;\end{bmatrix}"
 										title="X_{n} = \begin{bmatrix} x_{n} \\ y_{n} \\ \theta_{n} \\ \dot{x}_{n} \\ \dot{y}_{n} \\ \dot{\theta}_{n} \end{bmatrix}" />
 								</center>
 								<ol start="2" style="list-style-type: decimal">
-									<li>Matrix <img src="https://render.githubusercontent.com/render/math?math=A"> remains the same, matrix <img
+									<li>Dynamics matrix <img src="https://render.githubusercontent.com/render/math?math=A"> remains the same, matrix <img
 											src="https://render.githubusercontent.com/render/math?math=B"> is not used for prediction since we provide
 										no control input matrix <img src="https://render.githubusercontent.com/render/math?math=U"></li>
 								</ol>
@@ -429,7 +427,7 @@
 										title="\large A = \begin{bmatrix} 1 & 0 & 0 & t & 0 & 0 \\ 0 & 1 & 0 & 0 & t & 0 \\ 0 & 0 & 1 & 0 & 0 & t \\ 0 & 0 & 0 & 1 & 0 & 0 \\ 0 & 0 & 0 & 0 & 1 & 0 \\ 0 & 0 & 0 & 0 & 0 & 1 \end{bmatrix} \text{ } B = \begin{bmatrix} \frac{t^2}{2} & 0 & 0 \\ 0 & \frac{t^2}{2} & 0 \\ 0 & 0 & \frac{t^2}{2} \\ t & 0 & 0 \\ 0 & t & 0 \\ 0 & 0 & t \end{bmatrix}" />
 								</center>
 								<ol start="3" style="list-style-type: decimal">
-									<li>Process noise matrix <img src="https://render.githubusercontent.com/render/math?math=Q"> in this case will be
+									<li>Process noise matrix <img src="https://render.githubusercontent.com/render/math?math=Q"> will account for the noise
 										due to neglecting acceleration and higher order differentials. It remains the same.</li>
 								</ol>
 								<center>
@@ -438,7 +436,7 @@
 								</center>
 								<ol start="4" style="list-style-type: decimal">
 									<li>Measurement model needs matrix <img src="https://render.githubusercontent.com/render/math?math=H"> which remains
-										the same as above since we have 6 state variables but we measure only 3 variables hence the shape 3x6</li>
+										the same as above since we have 6 state variables but we measure only 3 variables (x, y and theta) hence the shape 3x6</li>
 								</ol>
 								<center>
 									<img src="https://latex.codecogs.com/png.latex?\inline&space;\dpi{150}&space;\large&space;H&space;=&space;\begin{bmatrix}&space;1&space;&&space;0&space;&&space;0&space;&&space;0&space;&&space;0&space;&&space;0\\&space;0&space;&&space;1&space;&&space;0&space;&&space;0&space;&&space;0&space;&&space;0\\&space;0&space;&&space;0&space;&&space;1&space;&&space;0&space;&&space;0&space;&&space;0&space;\end{bmatrix}"
@@ -565,15 +563,14 @@
 								<p>Here a kalman filter is designed that estimates the system state based on 2 sensor inputs (position sensor eg: gps
 									and an acceleration sensor eg: imu)</p>
 								<ol style="list-style-type: decimal">
-									<li>The dynamic model here has 3 more states of the robot (acceleration in x, y and theta) as these variables need
-										to be updated using the imu.
+									<li>The state space model here has 3 more states of the robot (acceleration in x, y and theta) as these states will be updated using the imu.
 										<center>
 											<img src="https://latex.codecogs.com/png.latex?\dpi{150}&space;X_{n}&space;=&space;\begin{bmatrix}&space;x_{n}&space;\\&space;y_{n}&space;\\&space;\theta_{n}&space;\\&space;\dot{x}_{n}&space;\\&space;\dot{y}_{n}&space;\\&space;\dot{\theta}_{n}&space;\\&space;\ddot{x}_{n}&space;\\&space;\ddot{y}_{n}&space;\\&space;\ddot{\theta}_{n}&space;\end{bmatrix}"
 												title="X_{n} = \begin{bmatrix} x_{n} \\ y_{n} \\ \theta_{n} \\ \dot{x}_{n} \\ \dot{y}_{n} \\ \dot{\theta}_{n} \\ \ddot{x}_{n} \\ \ddot{y}_{n} \\ \ddot{\theta}_{n} \end{bmatrix}" />
 										</center>
 										<br>
 									</li>
-									<li>Matrix <img src="https://render.githubusercontent.com/render/math?math=A"> now has the terms for acceleration
+									<li>Dynamics matrix <img src="https://render.githubusercontent.com/render/math?math=A"> now has the terms for acceleration
 										from equations of motion, matrix <img src="https://render.githubusercontent.com/render/math?math=B"> has terms
 										for jerk (the differential of acceleration, check taylor series expansion) in this model but is not used for
 										prediction since we provide no control input matrix <img
@@ -587,9 +584,10 @@
 										</center>
 										<br>
 									</li>
-									<li>Process noise matrix <img src="https://render.githubusercontent.com/render/math?math=Q"> in this case will be
-										due to neglecting jerk and other higher order differentials. hence it is given as with the diagonal terms
-										accounting for noise in x, y and theta. The values of diagonals are selected as small values in range 0 to 1.
+									<li>Process noise matrix <img src="https://render.githubusercontent.com/render/math?math=Q"> will account for noise in the system
+										due to neglecting jerk and other higher order differentials. The three dots on x, y and theta indicate the third order differential
+										(jerk) accounting for noise in x, y and theta. 
+										The values of diagonals are selected as small values in range 0 to 1.
 										<center>
 											<br>
 											<img src="https://latex.codecogs.com/png.latex?\dpi{150}&space;Q_a&space;=&space;\begin{bmatrix}&space;\sigma_{\dddot{x}}^2&space;&&space;0&space;&&space;0&space;\\&space;0&space;&&space;\sigma_{\dddot{y}}^2&space;&&space;0&space;\\&space;0&space;&&space;0&space;&&space;\sigma_{\dddot{\theta}}^2&space;\end{bmatrix}"
@@ -597,7 +595,7 @@
 										</center>
 										<br>
 									</li>
-									<li>Measurement model in this case has 2 sensors which perform the updates</li>
+									<li>We have 2 measurement models in this case has as there are 2 sensors</li>
 								</ol>
 								<ol style="list-style-type: lower-roman">
 									<li><b>Position sensor model:</b> needs matrix <img src="https://render.githubusercontent.com/render/math?math=H_{pos}">
@@ -774,7 +772,7 @@
 											<li>
 												At the corners we can see that the noise levels increase which corresponds to the delayed acceleration estimates.
 											</li>
-											<font size="-1">*I suggest touching your nose to the screen at value 50 on the variance(y) graph and moving back you head slowly till
+											<font size="-1">*I suggest touching your nose to the screen at value 50 in x for the variance(y) plot and moving back you head slowly till
 											you notice the changes in values ;-)*</font>
 										</ul>
 										</p>
@@ -807,7 +805,8 @@
 												imu.
 											</li>
 											<li>
-												The initial offset just before the position sensor switched off will be almost constant in the system as is seen
+												The initial offset just before the position sensor switched off will be almost constant in the system since now
+												we never measure position but keep estimating from the last value as is seen
 												from the graph.
 											</li>
 											<li>
@@ -823,7 +822,7 @@
 												<img src="assets/img/works/dead_reckoning_meme.jpg" />
 											</div>
 											<h5 id="how dead reckoning looks like:- you can feel it but you cant see it">
-												how dead reckoning looks like
+												what dead reckoning looks like
 											</h5>
 										</center>
 
@@ -849,9 +848,9 @@
 											</li>
 											<li>
 												The errors also rise exponentially immediately after the position sensor is switched off. Which is a good sign 
-												that our robot knows its position estimates are incorrect.
+												as our robot knows how inaccurate its position estimates are.
 											</li>
-											<font size="-1">*I think I am in london but I'm not sure I might just be in UK ;-)*</font>
+											<font size="-1">*I think I am in london but I'm not sure, I might just be in UK ;-)*</font>
 										</ul>
 										</p>
 
@@ -860,6 +859,7 @@
 								</ol>
 
 								<h3 id="design-notes">Design notes</h3>
+								<p>Some key points to keep in mind while designing kalman filters</p>
 								<ol style="list-style-type: decimal">
 									<li>The Q matrix values should be selected as a value between 0 and 1. the values can be tuned looking at system
 										outputs. The general intuition for Q is, higher the values the less system will trust its prediction as compared
@@ -869,8 +869,7 @@
 										measurements and true values. This requires a true measurement to be available of the measured quantity, apart
 										from what is measured by the sensor.</li>
 									<li>Multiple sensors can be fused using the kalman filter given the H and R matrices for those sensors. An update
-										step can be performed when any of the sensor measurements are available. Hence using this design the kalman
-										filter can run at a maximum frequency which is the frequency of the slowest sensor.</li>
+										step can be performed when any of the sensor measurements are available.</li>
 								</ol>
 
 
@@ -878,16 +877,21 @@
 								<h3 id="design-notes">References</h3>
 								<ol style="list-style-type: decimal">
 									<li>
-										These <a href="https://www.youtube.com/watch?v=CaCcOwJPytQ&list=PLX2gX-ftPVXU3oUFNATxGXY90AULiqnWT">Youtube lecture series</a> 
+										<a href="https://www.youtube.com/watch?v=CaCcOwJPytQ&list=PLX2gX-ftPVXU3oUFNATxGXY90AULiqnWT">Youtube lecture series</a> 
 										by Michel van Biezen.
 									</li>
 									<li>
 										<a href="https://www.kalmanfilter.net/kalman1d.html">Website</a>
-										with clear explanation of the single dimensional kalman filter.
+										with a nice explanation of the single dimensional kalman filter.
 									</li>
 									<li>
 										LinkedIn <a href="https://www.linkedin.com/pulse/2d-object-tracking-tutorial-kalman-filter-matlab-code-al-ahdab">tutorial</a>
 										by Mohammad Al-Ahdab.
+									</li>
+									<li>
+										Video from mathworks on
+										<a href="https://www.mathworks.com/videos/understanding-kalman-filters-part-3-optimal-state-estimator--1490710645421.html">
+											understanding kalman filters</a>
 									</li>
 								</ol>
 								
