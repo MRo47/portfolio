@@ -90,14 +90,14 @@
 									<!-- <div class="work-img">
 										
 									</div> -->
-									<h5 id="wall">A beautiful picture of a lion laughing (maybe) which makes absolutely no sense at all here, just like kalman filter 
+									<h5 id="wall">A beautiful picture of a lion laughing (maybe) which makes absolutely no sense at all here, just as much sense kalman filter 
 										did to me before I decided to write this guide</h5>
 								</center>
 								<h3>Introduction</h3>
 								<p>
 									From car navigation systems, autopilots to brain-computer interfaces or even landing humans on the moon
 									<a href="https://www.technologyreview.com/2016/09/05/157723/how-an-inventor-youve-probably-never-heard-of-shaped-the-modern-world/">(Apollo 11 lunar module)</a> 
-									the kalman filter is a ingenious tool that combines uncertain information about systems to produce an accurate guess of the system state.
+									the kalman filter is a ingenious tool that combines uncertain information about systems to produce an accurate guess of the system's state.
 									Kalman filter finds its use in dynamic systems that have some uncertain information about their state and helps in making
 									an educated guess about its current state using measurements which are usually obtained from noisy sensors. Why noisy sensors you ask? because
 									reality my friend!
@@ -106,7 +106,7 @@
 									<h3>Objectives</h3> 
 									<ul style="list-style-type: disc">
 										<li> To understand the intuition behind kalman filters.</li>
-										<li> To design a kalman filter to track the position and orientation of an object moving on a 2D plane with 3
+										<li> To design a kalman filter to track the position and orientation of a robot moving on a 2D plane with 3
 										degrees of freedom (translation in x, translation in y and angular rotation along z or yaw).</li>
 										<li> To understand sensor fusion using
 										kalman filters.</li>
@@ -157,7 +157,7 @@
 									started at and has a high variance value (P). The mean/position is 1.0 units but the high variance implies our value could be somewhere around 1.0 with
 									a high chance of being 1.0.
 									We predict the robot position in time given the velocity at 1.0 to be at at 8.0 but as can be seen has a bigger spread than the prior value 
-									as the predictions will be noisy based on the chosen system model (we guess the position hence we add more noise). A position sensor measurement is found to 
+									as the predictions will be noisy based on the chosen system model (we 'guess' the position hence we add more noise). A position sensor measurement is found to 
 									be 10.0 and has a slightly lower spread.
 									The resultant product of the measured and predicted values is a gaussian which is the corrected value, the location of which can be 
 									found using the mean formula above (9.154) and the spread using the variance formula. From the plots we see that the resultant has a lower
